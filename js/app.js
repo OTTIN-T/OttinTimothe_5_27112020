@@ -5,6 +5,7 @@ fetch("http://localhost:3000/api/cameras")
     .then((cameras) => {
         const $cameraList = document.querySelector('#camera-list')
         cameras.forEach(camera => {
+        console.log("cameras", cameras)
             $cameraList.innerHTML += 
             `<div id="camera-card" class="card col-lg-5 col-md-12 col-sm-12 col-12 mt-3 mb-3 border-dark shadow">
                 <a href="../html/produit.html?id=${camera._id}">
@@ -28,18 +29,25 @@ fetch("http://localhost:3000/api/cameras")
             </div>` 
             console.log(camera)
         })
-
+        
     })
+    
 })
 .catch((error) => {
     console.log(error);
 })
 
 
+
 // //Test appel URL
-// const getUrlProduct = window.location.href //on obtiens l'URL
-// const urlProduct = new URL(getUrlProduct) 
-// const idCamera = urlProduct.searchParams.get("id")
+const getUrlProduct = window.location.href //on obtiens l'URL
+console.log("getUrlProduct", getUrlProduct)
+
+const urlProduct = new URL(getUrlProduct) 
+console.log("urlProduct", urlProduct)
+
+const idCamera = urlProduct.searchParams.get("id")
+console.log("idCamera", idCamera)
 // const getUrl = () =>{
 //     if(idCamera == camera._id){
 //         document.location.href = "/html/produit.html" //Renvoi sur la page produit
@@ -48,12 +56,19 @@ fetch("http://localhost:3000/api/cameras")
 // //Work
 
 
-let getUrlProduct = window.location.href
-const urlProduct = new URL(getUrlProduct)
-const search_params = new URLSearchParams(urlProduct.search)
+// let getUrlProduct = window.location.href
+// console.log("getUrlProduct", getUrlProduct)
 
-if(search_params.has('id')) {
-  const id = search_params.get('id')
-  document.location.href = "/html/produit.html"
-}
+// const urlProduct = new URL(getUrlProduct)
+// console.log("urlProduct", urlProduct)
+
+// const search_params = new URLSearchParams(urlProduct.search)
+// console.log("search_params", search_params)
+
+// if(search_params.has('id')) {
+// console.log("search_params", search_params.has('id'))
+//   const id = search_params.get('id')
+// //   document.location.href = "/html/produit.html"
+//   console.log(id);
+// }
 //Work
