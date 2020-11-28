@@ -27,7 +27,7 @@ fetch("http://localhost:3000/api/cameras")
                     <a id="camera-buy"class="btn btn-secondary col-6 mx-auto mt-3" href="#" role="button">Ajouter au panier</a>
                 </div>   
             </div>` 
-            console.log(camera)
+            console.log("camera", camera)
         })
         
     })
