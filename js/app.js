@@ -1,13 +1,8 @@
-//Appel URL
-const getUrlProduct = window.location.href //Obtiens l'URL actuel
-const urlProduct = new URL(getUrlProduct) //Permet d'obtenir les objet de l'url 
-const idCamera = urlProduct.searchParams.get("id")//On récupère .search de l'URL
-
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras")
-.then((result) => {
+.then(result => {
     result.json()
-    .then((cameras) => {
+    .then(cameras => {
         const $cameraList = document.querySelector('#camera-list')
         cameras.forEach(camera => {
             const lenses = document.createElement("select")
@@ -42,23 +37,6 @@ fetch("http://localhost:3000/api/cameras")
         })    
     }) 
 })
-.catch((error) => {
+.catch(error => {
     console.log(error);
 })
-
-// let getUrlProduct = window.location.href
-// console.log("getUrlProduct", getUrlProduct)
-
-// const urlProduct = new URL(getUrlProduct)
-// console.log("urlProduct", urlProduct)
-
-// const search_params = new URLSearchParams(urlProduct.search)
-// console.log("search_params", search_params)
-
-// if(search_params.has('id')) {
-// console.log("search_params", search_params.has('id'))
-//   const id = search_params.get('id')
-// //   document.location.href = "/html/produit.html"
-//   console.log(id);
-// }
-//Work

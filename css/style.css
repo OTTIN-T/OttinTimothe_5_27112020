@@ -52,6 +52,11 @@ nav{
     display: flex;
 }
 
+.selectQuantity{
+    justify-content: center;
+    display: flex;
+}
+
 footer{
     height: 80px;
     margin-bottom: 0px !important;

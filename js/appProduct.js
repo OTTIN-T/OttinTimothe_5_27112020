@@ -4,6 +4,7 @@ let getUrlProduct = window.location.href //Obtiens l'URL actuel
 const urlProduct = new URL(getUrlProduct) //Permet d'obtenir les objet de l'url  
 const search_params = urlProduct.search //On récupère .search de l'URL
 
+
 //Appel de notre API
 if(search_params) {
     const id = search_params
@@ -39,8 +40,23 @@ if(search_params) {
                                 ${lenses.innerHTML}
                             </select>
                             <p id="camera-price" class="card-text col-lg-6 col-md-6 col-sm-6 col-12 mx-auto">${camera.price + " €"}</p>
-                        </div>  
-                        <a id="camera-buy"class="btn btn-secondary col-6 mx-auto mt-3" href="#" role="button">Ajouter au panier</a>
+                        </div>
+                        <div class="col-12 mt-5"> 
+                            <label class="selectQuantity" for="camera-quantity">Quantité :
+                                <select id="quantity" name="camera-quantity">
+                                    <option value="1"> 1</option>
+                                    <option value="2"> 2</option>
+                                    <option value="3"> 3</option>
+                                    <option value="4"> 4</option>
+                                    <option value="5"> 5</option>
+                                    <option value="6"> 6</option>
+                                    <option value="7"> 7</option>
+                                    <option value="8"> 8</option>
+                                    <option value="9"> 9</option>
+                                </select>
+                            </label>
+                            <button type="button" id="camera-buy" class="add-to-cart btn btn-secondary mx-auto" data-id="${id}" data-name="${camera.name}" data-price="${camera.price}" data-url="${getUrlProduct}">Ajouter au panier</button>
+                        </div>
                     </div>   
                 </div>`
             } 
@@ -50,4 +66,5 @@ if(search_params) {
         console.log(error);
     })
 }
+//<button type="button" class="add-to-cart" data-id="${id}" data-name="Pastilles" data-price="${camera.price}" data-weight="97" data-url="${getUrlProduct}">Ajouter au panier</button>
 
