@@ -85,9 +85,9 @@ const addToBasket = () => {
     storage.panier.push({
         _id: camera._id,
         lenses: inputGroupSelect01.value,
-        price : camera.price,
+        quantity: quantity,
+        price : camera.price * quantity,
         imageUrl: camera.imageUrl,
-        quantity: quantity
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     alert('Votre objet est bien ajouté au panier')

@@ -3,6 +3,8 @@
 let camera;
 let lenses;
 let $cameraList;
+let quantity;
+
 
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras")
@@ -53,7 +55,7 @@ const cameraCard = () => {
                     ${lenses.innerHTML}
                 </select>
                 <label class="col-3 camera-quantity-selector" for="camera-quantity">Quantité: 
-                    <select id="quantity" name="camera-quantity">
+                    <select onclick="addToPrice()" id="quantity" name="camera-quantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -65,18 +67,34 @@ const cameraCard = () => {
                         <option value="9">9</option>
                     </select>
                 </label>
-                <p id="camera-price" class="card-text col-lg-3 col-md-3 col-sm-3 col-12 mx-auto">${camera.price + " €"}</p>
+                <p id="camera-price" class="card-text col-lg-3 col-md-3 col-sm-3 col-12 mx-auto">${camera.price +  " €"}</p>
             </div>
             <div class="col-12 mt-3">
-                <button type="button" onclick="addToBasket()" id="camera-buy" class="add-to-cart btn btn-secondary col-6 mx-auto mt-1">Ajouter au panier</button>
+                <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-cart btn btn-secondary col-6 mx-auto mt-1">Ajouter au panier</button>
             </div>               
         </div>   
     </div>`
 } 
-// <a id="camera-buy" class="btn btn-secondary col-6 mx-auto mt-3" href="#" role="button">Ajouter au panier</a>
+
+//Fonction pour le prix
+// const quantityValue = () => {
+//     quantity = document.querySelector('#quantity').value
+//     console.log("quantity", quantity)
+// }
+
+const addToPrice = () => {
+    quantity = document.querySelector('#quantity').value
+    console.log("quantity", quantity)
+    const $cameraPrice = document.querySelector('#camera-price')
+    $cameraPrice.innerHTML = camera.price
+    camera.price = (camera.price * quantity)
+    console.log("camera.price", camera.price)
+}
+
 //Fonction pour le localStorage
 const addToBasket = () => {
-    const quantity = document.querySelector('#quantity').value
+    quantity = document.querySelector('#quantity').value
+    
     let storage = window.localStorage.getItem("orinocoCamera")
     if(!storage){
         storage = {
@@ -87,10 +105,10 @@ const addToBasket = () => {
     }
     storage.panier.push({
         _id: camera._id,
-        lenses: lenses.value,
-        price : camera.price,
+        //lense: lense,
         imageUrl: camera.imageUrl,
-        quantity: quantity
+        quantity: quantity,
+        price: camera.price * quantity,
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     alert('Votre objet est bien ajouté au panier')
