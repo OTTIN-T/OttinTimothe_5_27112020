@@ -57,6 +57,10 @@ nav{
     display: flex;
 }
 
+/* .dropdown:hover > #cart-dropdown{
+    display: block;
+} */
+
 footer{
     height: 80px;
     margin-bottom: 0px !important;
