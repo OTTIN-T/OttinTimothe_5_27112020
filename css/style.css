@@ -41,6 +41,11 @@ nav{
     padding: 0;
 }
 
+.camera-quantity-selector{
+    display: inline-grid;
+}
+
+
 #camera-price{
     display: flex;
     justify-content: center;
@@ -56,10 +61,6 @@ nav{
     justify-content: center;
     display: flex;
 }
-
-/* .dropdown:hover > #cart-dropdown{
-    display: block;
-} */
 
 footer{
     height: 80px;
