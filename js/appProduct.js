@@ -98,6 +98,7 @@ const addToBasket = () => {
         quantity: quantity,
         price : camera.price * quantity,
         imageUrl: camera.imageUrl,
+        // priceTotal: price + price.length,
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     alert('L\'article a bien été ajouté à votre panier')

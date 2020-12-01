@@ -1,9 +1,11 @@
 //Page cart
 //On initialise nos variables
 let cart;
-let $cartTableBody;
 let cartTableInfo;
-
+let cartCalcul;
+let $cartTableBody;
+let $cartTotal;
+let $parentPrice;
 //On récupère notre storage en json
 let storage = localStorage.getItem("orinocoCamera");
 
@@ -18,10 +20,10 @@ const cartRow = () => {
 const cartTable = () => {
      $cartTableBody = document.querySelector('#cart-tablebody')
      $cartTableBody.innerHTML += (`
-     <tr>
+     <tr id="parent-price">
           <td>${cartTableInfo.name}</td>
           <td>${cartTableInfo.quantity}</td> 
-          <td>${cartTableInfo.price} €</td>
+          <td id="price-table">${cartTableInfo.price + ' €'}</td>
      </tr>`)
 }
 
@@ -35,6 +37,53 @@ const cartEmpty = () => {
      `)
 }
 
+//Fonction prix total
+// const subTotal = () => {
+//      $cartTotal = document.querySelector('#subtotal')
+//      $priceTable = document.querySelector('#price-table')
+//      console.log("$priceTable", $priceTable.price)
+//      console.log("$priceTable2", $priceTable)
+//      $parentPrice = document.querySelector('#parent-price')
+
+//      console.log("cart", cart);
+
+//      if(cart.length >= 1){
+//      console.log("$parentPrice", $parentPrice )
+//      console.log("$priceTable3", $priceTable.value)
+//           // for(let i = 0; i<cart.length; i++){
+//                cartCalcul = $parentPrice.appendChild($priceTable)
+//                console.log("cartCalcul", cartCalcul.push)
+//                console.log("cartTableInfo", cartTableInfo)
+//           // }          
+//           console.log("cartCalcul2", cartCalcul.tagName)
+//           // const cartTotalCalcul = cartTableInfo.price * $priceTable //Le calcul
+//           $cartTotal.innerHTML = (`${cartTableInfo.price}`)                 
+//      }else{
+//           $cartTotal.innerHTML = (`Panier vide 0`)   
+//      }
+//      console.log(" $cartTotal.innerHTML",  $cartTotal.innerHTML)
+//      console.log("cart.length", cart.length)
+     
+//      // Il faut calculer le nombre de id price table et le multiplier par le price total
+
+//       //Ce qu'on veut afficher
+//      // console.log("cart.length", cart.length)
+//      // console.log("cartTotalCalcul", cartTotalCalcul)
+    
+//      // console.log("$cartTotal.innerHTML", $cartTotal.innerHTML)
+//      // console.log("cartable", cartTableInfo.price);
+//      // console.log("Info",cartTableInfo);
+// }
+
+const subTotal = () => {
+     cartCalcul = document.querySelector('#subtotal')
+     $cartTotal = (cartTableInfo.price * cart.length)
+     cartCalcul.innerHTML +=  $cartTotal.length
+     console.log("$cartTotal.valueOf()", $cartTotal.valueOf())
+     console.log("cartTableInfo.price * cart.length", cartTableInfo.price * cart.length)
+     console.log("$cartTotal", $cartTotal)
+     console.log("cartTableInfo.price", cartTableInfo.price)
+}
 
 if(!storage) {
      //Si non
@@ -54,7 +103,8 @@ if(!storage) {
           cartRow()
           cart.forEach((result) => { //Boucle pour incrémenter le tableau
                cartTableInfo = result
-               cartTable()    
+               cartTable()  
+               subTotal()  
           });      
      }
 }
