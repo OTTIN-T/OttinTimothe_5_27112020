@@ -62,6 +62,10 @@ nav{
     display: flex;
 }
 
+#title-table-empty{
+    justify-content:  center;
+}
+
 footer{
     height: 80px;
     margin-bottom: 0px !important;
