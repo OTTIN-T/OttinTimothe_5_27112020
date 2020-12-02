@@ -5,18 +5,19 @@ let cartTableInfo;
 let cartCalcul;
 let $cartTableBody;
 let $cartTotal;
-let $parentPrice;
+
 //On récupère notre storage en json
 let storage = localStorage.getItem("orinocoCamera");
 
 //On extrait chaque ligne du tableau 
 const cartRow = () => {
      for(let i = 0; i < cart.length; i++){
-          cartTableInfo = cart[i] //Récupère pour un élément ses infos
+          cartTableInfo = cart[i] //Récupère pour un élément du panier ses infos sous forme d'objet
      }
 }
 
 //Fonction pour créer une ligne du tableau
+//On récupère cartTableInfo pour extraire ses infos dans le tableau
 const cartTable = () => {
      $cartTableBody = document.querySelector('#cart-tablebody')
      $cartTableBody.innerHTML += (`
@@ -37,58 +38,34 @@ const cartEmpty = () => {
      `)
 }
 
-//Fonction prix total
-// const subTotal = () => {
-//      $cartTotal = document.querySelector('#subtotal')
-//      $priceTable = document.querySelector('#price-table')
-//      console.log("$priceTable", $priceTable.price)
-//      console.log("$priceTable2", $priceTable)
-//      $parentPrice = document.querySelector('#parent-price')
-
-//      console.log("cart", cart);
-
-//      if(cart.length >= 1){
-//      console.log("$parentPrice", $parentPrice )
-//      console.log("$priceTable3", $priceTable.value)
-//           // for(let i = 0; i<cart.length; i++){
-//                cartCalcul = $parentPrice.appendChild($priceTable)
-//                console.log("cartCalcul", cartCalcul.push)
-//                console.log("cartTableInfo", cartTableInfo)
-//           // }          
-//           console.log("cartCalcul2", cartCalcul.tagName)
-//           // const cartTotalCalcul = cartTableInfo.price * $priceTable //Le calcul
-//           $cartTotal.innerHTML = (`${cartTableInfo.price}`)                 
-//      }else{
-//           $cartTotal.innerHTML = (`Panier vide 0`)   
-//      }
-//      console.log(" $cartTotal.innerHTML",  $cartTotal.innerHTML)
-//      console.log("cart.length", cart.length)
-     
-//      // Il faut calculer le nombre de id price table et le multiplier par le price total
-
-//       //Ce qu'on veut afficher
-//      // console.log("cart.length", cart.length)
-//      // console.log("cartTotalCalcul", cartTotalCalcul)
-    
-//      // console.log("$cartTotal.innerHTML", $cartTotal.innerHTML)
-//      // console.log("cartable", cartTableInfo.price);
-//      // console.log("Info",cartTableInfo);
-// }
-
-const subTotal = () => {
-     cartCalcul = document.querySelector('#subtotal')
-     $cartTotal = (cartTableInfo.price * cart.length)
-     cartCalcul.innerHTML +=  $cartTotal.length
-     console.log("$cartTotal.valueOf()", $cartTotal.valueOf())
-     console.log("cartTableInfo.price * cart.length", cartTableInfo.price * cart.length)
-     console.log("$cartTotal", $cartTotal)
-     console.log("cartTableInfo.price", cartTableInfo.price)
+//Fonction pour calculer un total
+//On ajoute le prototype sum à notre constructeur Array
+Array.prototype.sum = function calcul(){
+	sum = 0;	
+	for(i=0;i<this.length; i++){	//this revoie la taille de notre tableau
+		if (!isNaN(Number(this[i]))){		
+			sum += Number(this[i]);	
+		}		
+	}
+	return sum;
 }
 
-if(!storage) {
+//Fonction pour calculer le total de notre tableau
+const subTotal = () => {
+     cartCalcul = document.querySelector('#subtotal')
+     $cartTotal = [] //On initialise un tableau vide
+     cart.forEach((result) => {
+          cartTableInfo = result 
+          $cartTotal.push(cartTableInfo.price) //On push chaque price dans notre tableau
+     });     
+     cartCalcul.innerHTML =  $cartTotal.sum() //On fait le total de notre tableau
+}
+
+//Condition pour afficher et utiliser notre panier
+if(!storage) { //On vérifie si storage existe
      //Si non
      storage = {
-          cart: [],
+          cart: [], //Créé un tableau vie
      }
      if(storage.cart.length <= 0){
           cartEmpty()
@@ -101,11 +78,11 @@ if(!storage) {
      //Condition pour afficher notre panier 
      if(cart.length >= 1){
           cartRow()
+          subTotal()
           cart.forEach((result) => { //Boucle pour incrémenter le tableau
                cartTableInfo = result
-               cartTable()  
-               subTotal()  
-          });      
+               cartTable()       
+          });   
      }
 }
 
