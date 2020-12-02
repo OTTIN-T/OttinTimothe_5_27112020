@@ -22,10 +22,10 @@
                             <a href="../index.html" class="nav-link">Accueil</a>
                         </li>
                         <li class="nav-item">
-                            <a href="./commande.html" class="nav-link">Commande</a>
+                            <a href="./order.html" class="nav-link">Commande</a>
                         </li>
                         <li class="nav-item active">
-                            <a href="./panier.html" class="nav-link">Panier</a>
+                            <a href="./basket.html" class="nav-link">Panier</a>
                         </li>
                     </ul>
                 </div>
@@ -33,7 +33,7 @@
         </div>
     </header>
     <main>
-        <div class="dropdown">
+        <!-- <div class="dropdown">
             <div id="cart">
                 <p><span id="in-basket-items-num">0</span> Articles</p>
             </div>
@@ -42,7 +42,7 @@
                 <li id="empty-cart-msg"><a>Votre panier est vide</a></li>
                 <li class="go-to-cart hidden"><a href="./panier.html">Voir le panier</a></li>
             </ul>
-        </div>
+        </div> -->
 
         <table id="table-empty" class="table">
             <thead>
@@ -54,16 +54,7 @@
             </thead>
             <tbody id="cart-tablebody">
             </tbody>
-            <tfoot>
-                <tr>
-                    <td></td>
-                    <td>
-                        <button id="confirm-command">Passer la commande</button>
-                    </td>
-                    <td>
-                        <p>Sous total : <span id="subtotal"></span>€</p>
-                    </td>
-                </tr>
+            <tfoot id="cart-footer">
             </tfoot>
         </table>
 

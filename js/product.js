@@ -47,7 +47,6 @@ const cameraCard = () => {
                     <label class="input-group-text" for="inputGroupSelect01">Lentilles</label>
                 </div>
                 <select class="custom-select col-lg-4 col-md-4 col-sm-4 col-12" id="inputGroupSelect01">
-                    <option selected value="1">Sélectionner</option>
                     ${lenses.innerHTML}
                 </select>
                 <label class="col-3 camera-quantity-selector" for="camera-quantity">Quantité: 
