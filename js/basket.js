@@ -1,37 +1,37 @@
-//Page cart
+//Page products
 //On initialise nos variables
-let cart;
-let cartTableInfo;
-let cartCalcul;
-let cartTotal;
-let $cartTableBody;
+let products;
+let productsTableInfo;
+let productsCalcul;
+let productsTotal;
+let $productsTableBody;
 
 //On récupère notre storage en json
 let storage = localStorage.getItem("orinocoCamera");
 
 //On extrait chaque ligne du tableau 
-const cartRow = () => {
-     for(let i = 0; i < cart.length; i++){
-          cartTableInfo = cart[i] //Récupère pour un élément du panier ses infos sous forme d'objet
+const productsRow = () => {
+     for(let i = 0; i < products.length; i++){
+          productsTableInfo = products[i] //Récupère pour un élément du panier ses infos sous forme d'objet
      }
 }
 
 //Fonction pour créer une ligne du tableau
-//On récupère cartTableInfo pour extraire ses infos dans le tableau
-const cartTable = () => {
-     $cartTableBody = document.querySelector('#cart-tablebody')
-     $cartTableBody.innerHTML += (`
+//On récupère productsTableInfo pour extraire ses infos dans le tableau
+const productsTable = () => {
+     $productsTableBody = document.querySelector('#products-tablebody')
+     $productsTableBody.innerHTML += (`
      <tr id="parent-price">
-          <td>${cartTableInfo.name}  ${cartTableInfo.lenses}</td>
-          <td>${cartTableInfo.quantity}</td> 
-          <td id="price-table">${cartTableInfo.price + ' €'}</td>
+          <td>${productsTableInfo.name}  ${productsTableInfo.lenses}</td>
+          <td>${productsTableInfo.quantity}</td> 
+          <td id="price-table">${productsTableInfo.price + ' €'}</td>
      </tr>`)
 }
 
 //Fonction pour notre panier vide
-const cartEmpty = () => {
-     $cartTableBody = document.querySelector('#cart-tablebody')
-     $cartTableBody.innerHTML +=(`
+const productsEmpty = () => {
+     $productsTableBody = document.querySelector('#products-tablebody')
+     $productsTableBody.innerHTML +=(`
      <tr id="title-table-empty" class="col-12 mx-auto">
           <td>Votre panier est vide</td>
      </tr>
@@ -39,9 +39,9 @@ const cartEmpty = () => {
 }
 
 //Fonction pour créer notre bouton d'achat
-const cartFooter = () => { 
-     $cartFooter = document.querySelector('#cart-footer')
-     $cartFooter.innerHTML += (`
+const productsFooter = () => { 
+     $productsFooter = document.querySelector('#products-footer')
+     $productsFooter.innerHTML += (`
      <tr>
           <td>
                <p><span></span></p>
@@ -57,73 +57,74 @@ const cartFooter = () => {
      </tr>`)
 }
 
-//Fonction pour calculer un total
-//On ajoute le prototype sum à notre constructeur Array
-Array.prototype.sum = function calcul(){
-	sum = 0;	
-	for(i=0;i<this.length; i++){	//this revoie la taille de notre tableau
-		if (!isNaN(Number(this[i]))){		
-			sum += Number(this[i]);	
-		}		
-	}
-	return sum;
-}
 
 //Fonction pour calculer le total du prix dans notre tableau
 const subTotal = () => {
-     cartCalcul = document.querySelector('#sub-total')
-     cartTotalSub = [] //On initialise un tableau vide
-     cart.forEach((result) => {
-          cartTableInfo = result 
-          cartTotalSub.push(cartTableInfo.price) //On push chaque price dans notre tableau
+     productsCalcul = document.querySelector('#sub-total')
+     productsTotalSub = [] //On initialise un tableau vide
+     let total = 0
+     products.forEach((result) => {
+          total += productsTableInfo.price //S'ajoute à lui même avec une aautre valeur
+          productsTableInfo = result 
+          productsTotalSub.push(productsTableInfo.price) //On push chaque price dans notre tableau
      });     
-     cartCalcul.innerHTML =  cartTotalSub.sum() //On fait le total de notre tableau
+     productsCalcul.innerHTML =  total //On fait le total de notre tableau
 }
 
 //Fonction pour calculer le total de la quantité dans notre tableau
 const quantTotal = () => {
-     cartTotalQuant = [] //On initialise un tableau vide
-     cart.forEach((result) => {
-          cartTableInfo = result 
-          cartTotalQuant.push(cartTableInfo.quantity) //On push chaque price dans notre tableau
+     productsTotalQuant = [] //On initialise un tableau vide
+     let total = 0
+     products.forEach((result) => {
+          total += productsTableInfo.quantity
+          productsTableInfo = result 
+          productsTotalQuant.push(productsTableInfo.quantity) //On push chaque price dans notre tableau
      });     
-     cartCalcul =  cartTotalQuant.sum() //On fait le total de notre tableau
+     productsCalcul =   total //On fait le total de notre tableau
 }
 
 const nameTotal = () => {
-     cartTotalName = [] //On initialise un tableau vide
-     cart.forEach((result) => {
-          cartTableInfo = result 
-          cartTotalName.push(cartTableInfo.name) //On push chaque price dans notre tableau
+     productsTotalName = [] //On initialise un tableau vide
+     products.forEach((result) => {
+          productsTableInfo = result 
+          productsTotalName.push(productsTableInfo.name) //On push chaque price dans notre tableau
      });     
-     cartCalcul =  cartTotalName //On fait le total de notre tableau
+     productsCalcul =  productsTotalName //On fait le total de notre tableau
 }
+
+
+// const implementBasket = () => {
+//      products.forEach((product) => {
+          
+//      });  
+// }
 
 
 //Condition pour afficher et utiliser notre panier
 if(!storage) { //On vérifie si storage existe
      //Si non
      storage = {
-          cart: [], //Créé un tableau vide
+          products: [], //Créé un tableau vide
      }
-     if(storage.cart.length <= 0){
-          cartEmpty()
+     if(storage.products.length <= 0){
+          productsEmpty()
      }
 } else {
      //si oui
      //On extrait notre json 
      storage = JSON.parse(storage)
-     cart = storage.cart
+     products = storage.products //Un tableau avec un index = une ligne/items 
+     console.log("products", products)
      //Condition pour afficher notre panier 
-     if(cart.length >= 1){
-          cartRow()
-          cartFooter()
+     if(products.length >= 1){
+          productsRow()
+          productsFooter()
           subTotal()
           quantTotal()
           nameTotal()
-          cart.forEach((result) => { //Boucle pour incrémenter le tableau
-               cartTableInfo = result
-               cartTable()       
+          products.forEach((result) => { //Boucle pour incrémenter le tableau
+               productsTableInfo = result
+               productsTable()       
           });   
      }
 }
@@ -134,21 +135,21 @@ const sendCommand = () => {
      let order = window.localStorage.getItem("sendCommand") //Créer notre stockage de panier
      if(!order){
          order = {
-             command: [],
+             products: [],
          }
      } else{
          order = JSON.parse(order) //On extrait notre json 
      }
-     order.command.unshift({ //Place notre commande en index 0
-         name: cartTotalName,
-         quantity: cartTotalQuant,
-         price : cartTotalSub,
-         priceTotal: cartTotalSub.sum(),
+     order.products.unshift({ //Place notre commande en index 0
+         name: productsTotalName,
+         quantity: productsTotalQuant,
+         price : productsTotalSub,
+     //     priceTotal: productsTotalSub.sum(),
      })
-     if(order.command.length > 1){ //Supprime anciennes commande si nouvelle commande
+     if(order.products.length > 1){ //Supprime anciennes commande si nouvelle commande
           const pos = 1
           const n = 1
-          order.command.splice(pos, n)
+          order.products.splice(pos, n)
      }
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
      alert('Commande envoyé')

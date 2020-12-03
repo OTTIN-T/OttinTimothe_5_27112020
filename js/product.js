@@ -62,10 +62,10 @@ const cameraCard = () => {
                         <option value="9">9</option>
                     </select>
                 </label>
-                <p id="camera-price" class="card-text col-lg-3 col-md-3 col-sm-3 col-12 mx-auto">${camera.price +  " €"}</p>
+                <p id="camera-price" class="card-text col-lg-3 col-md-3 col-sm-3 col-12 mx-auto">${camera.price} €</p>
             </div>
             <div class="col-12 mt-3">
-                <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-cart btn btn-secondary col-6 mx-auto mt-1">Ajouter au panier</button>
+                <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-products btn btn-secondary col-6 mx-auto mt-1">Ajouter au panier</button>
             </div>               
         </div>   
     </div>`
@@ -85,12 +85,12 @@ const addToBasket = () => {
     let storage = window.localStorage.getItem("orinocoCamera") //Créer notre stockage de panier
     if(!storage){
         storage = {
-            cart: [],
+            products: [],
         }
     } else{
         storage = JSON.parse(storage) //On extrait notre json 
     }
-    storage.cart.push({
+    storage.products.push({
         name: camera.name,
         _id: camera._id,
         lenses: inputGroupSelect01.value,
