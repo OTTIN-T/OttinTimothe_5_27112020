@@ -9,6 +9,10 @@ nav{
     }
 }
 
+.hide{
+  display: none;  
+}
+
 #navbar-content{
     justify-content: flex-end;
 }

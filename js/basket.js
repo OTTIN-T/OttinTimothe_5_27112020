@@ -3,8 +3,8 @@
 let cart;
 let cartTableInfo;
 let cartCalcul;
-let $cartTableBody;
 let cartTotal;
+let $cartTableBody;
 
 //On récupère notre storage en json
 let storage = localStorage.getItem("orinocoCamera");
@@ -22,7 +22,7 @@ const cartTable = () => {
      $cartTableBody = document.querySelector('#cart-tablebody')
      $cartTableBody.innerHTML += (`
      <tr id="parent-price">
-          <td>${cartTableInfo.name + cartTableInfo.lenses}</td>
+          <td>${cartTableInfo.name}  ${cartTableInfo.lenses}</td>
           <td>${cartTableInfo.quantity}</td> 
           <td id="price-table">${cartTableInfo.price + ' €'}</td>
      </tr>`)
@@ -128,7 +128,7 @@ if(!storage) { //On vérifie si storage existe
      }
 }
 
-//Fonction pour le localStorage
+//Fonction pour stocker notre commande dans le localStorage
 const sendCommand = () => {
      const quantity = document.querySelector('#quantity') //Récupère la valeur de la quantité
      let order = window.localStorage.getItem("sendCommand") //Créer notre stockage de panier
@@ -139,13 +139,18 @@ const sendCommand = () => {
      } else{
          order = JSON.parse(order) //On extrait notre json 
      }
-     order.command.push({
+     order.command.unshift({ //Place notre commande en index 0
          name: cartTotalName,
          quantity: cartTotalQuant,
          price : cartTotalSub,
+         priceTotal: cartTotalSub.sum(),
      })
+     if(order.command.length > 1){ //Supprime anciennes commande si nouvelle commande
+          const pos = 1
+          const n = 1
+          order.command.splice(pos, n)
+     }
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
-     console.log("window.localStorage.setItem", JSON.stringify(order))
      alert('Commande envoyé')
      console.log("order",order);
  }
