@@ -4,6 +4,7 @@ let products;
 let productsTableInfo;
 let productsCalcul;
 let productsTotal;
+let productsTotalId;
 let $productsTableBody;
 
 //On récupère notre storage en json
@@ -92,6 +93,15 @@ const nameTotal = () => {
      productsCalcul =  productsTotalName //On fait le total de notre tableau
 }
 
+const idTotal = () => {
+     productsTotalId = [] //On initialise un tableau vide
+     products.forEach((result) => {
+          productsTableInfo = result 
+          productsTotalId.push(productsTableInfo._id) //On push chaque price dans notre tableau
+     });     
+     productsCalcul =  productsTotalId //On fait le total de notre tableau
+}
+
 
 // const implementBasket = () => {
 //      products.forEach((product) => {
@@ -114,7 +124,6 @@ if(!storage) { //On vérifie si storage existe
      //On extrait notre json 
      storage = JSON.parse(storage)
      products = storage.products //Un tableau avec un index = une ligne/items 
-     console.log("products", products)
      //Condition pour afficher notre panier 
      if(products.length >= 1){
           productsRow()
@@ -122,6 +131,7 @@ if(!storage) { //On vérifie si storage existe
           subTotal()
           quantTotal()
           nameTotal()
+          idTotal()
           products.forEach((result) => { //Boucle pour incrémenter le tableau
                productsTableInfo = result
                productsTable()       
@@ -143,7 +153,8 @@ const sendCommand = () => {
      order.products.unshift({ //Place notre commande en index 0
          name: productsTotalName,
          quantity: productsTotalQuant,
-         price : productsTotalSub,
+         price: productsTotalSub,
+         id: productsTotalId,
      //     priceTotal: productsTotalSub.sum(),
      })
      if(order.products.length > 1){ //Supprime anciennes commande si nouvelle commande
@@ -153,8 +164,7 @@ const sendCommand = () => {
      }
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
      alert('Commande envoyé')
-     console.log("order",order);
- }
+}
 
 
 

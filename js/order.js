@@ -1,7 +1,9 @@
 //Page order
-//On récupère notre storageCommand en json
-let storageCommand = localStorage.getItem("sendCommand");
+//On déclare nos variables utiles à diffèrentes fonction
+let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
 
+//let send = localStorage.order;
+const $orderForm = document.querySelector('#order-form');
 
 //Fonction pour notre commande vide
 const commandEmpty = () => {
@@ -62,30 +64,71 @@ const commandForm = () => {
      `)
 }
 
+$orderForm.addEventListener('submit', () => { 
+     const $firstName = document.querySelector('#firstName');
+     const $lastName = document.querySelector('#lastName');
+     const $adress= document.querySelector('#adress');
+     const $city = document.querySelector('#city');
+     const $email = document.querySelector('#email');
+     let sendStorage = window.localStorage.getItem("order") //Créer notre stockage de panier     
+     if(sendStorage){
+          sendStorage = JSON.parse(sendStorage) //On extrait notre json 
+     } else {
+          sendStorage = {
+               order: [],
+          }     
+     }
+     sendStorage.order.push({
+          contact: { //Objet contact
+               firstName: $firstName.value,
+               lastName: $lastName.value,
+               adress: $adress.value,
+               city: $city.value,
+               email: $email.value,
+          }, 
+          products: productsTotalId,  
+     })
+       
+     alert('Commande prise en compte')     
+     console.log("sendStorage1", sendStorage.order)
+
+     const order = {
+          method: 'POST',
+          body: window.localStorage.setItem("order", JSON.stringify(sendStorage))  ,
+          headers: {
+              'Content-Type': 'application/json'
+          }
+     }
+       
+      fetch("http://localhost:3000/api/cameras/order/", order)
+          .then(res => res.text())
+          .then(res => console.log(res));
+})
+console.log("orderSend", localStorage.order)
+
+
+
 //Fonction envoie formulaire
 //On initialise nos variables
-const $orderForm = document.querySelector('#order-form')
-const $firstName = document.querySelector('#firsName') 
-const $lastName = document.querySelector('#lastName')
-const $adress= document.querySelector('#adress')
-const $city = document.querySelector('#city')
-const $email = document.querySelector('#email')
 
 //On écoute l'envoi formulaire
-$orderForm.addEventListener('submit', () => {
-   const order = {
-        contact: {
-             firstName: $firstName.value,
-             lastName: $lastName.value,
-             adress: $adress.value,
-             city: $city.value,
-             email: $email.value,
-        }
-   }  
-   console.log("order", order)
-   products: [products]
-   console.log("products", [products])
-})
+// $orderForm.addEventListener('submit', () => {
+//      const order = { 
+//           contact: { //Objet contact
+//                firstName: $firstName.value,
+//                lastName: $lastName.value,
+//                adress: $adress.value,
+//                city: $city.value,
+//                email: $email.value
+//           }, 
+//           products: productsTotalId,  
+//      } 
+
+
+// })
+// console.log("products", productsTotalId)
+
+ 
 // const options = {
 //      method: 'POST',
 //      body: JSON.stringify(user),
@@ -114,3 +157,4 @@ if(!storageCommand) { //On vérifie si storageCommand existe
           commandFooter()  
      }
 }
+
