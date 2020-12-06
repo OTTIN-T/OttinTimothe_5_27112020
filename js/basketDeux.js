@@ -575,4 +575,3 @@ if(window.location.pathname == '/panier.html/'){
           carEmptyToggle()
      })
 }
-

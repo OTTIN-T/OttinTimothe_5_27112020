@@ -1,8 +1,5 @@
 //Page order
 //On déclare nos variables utiles à diffèrentes fonction
-let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
-
-//let send = localStorage.order;
 const $orderForm = document.querySelector('#order-form');
 
 //Fonction pour notre commande vide
@@ -70,41 +67,43 @@ $orderForm.addEventListener('submit', () => {
      const $adress= document.querySelector('#adress');
      const $city = document.querySelector('#city');
      const $email = document.querySelector('#email');
-     let sendStorage = window.localStorage.getItem("order") //Créer notre stockage de panier     
-     if(sendStorage){
-          sendStorage = JSON.parse(sendStorage) //On extrait notre json 
-     } else {
-          sendStorage = {
-               order: [],
-          }     
-     }
-     sendStorage.order.push({
+     console.log("$email", $email)
+     let order = {
           contact: { //Objet contact
                firstName: $firstName.value,
                lastName: $lastName.value,
-               adress: $adress.value,
+               address: $adress.value,
                city: $city.value,
                email: $email.value,
           }, 
-          products: productsTotalId,  
-     })
-       
-     alert('Commande prise en compte')     
-     console.log("sendStorage1", sendStorage.order)
-
-     const order = {
+          products: productsTotalId,  //Tableau des id des items
+     };  
+     console.log("orderContact1", order.contact),
+     console.log("orderProduct1", order.products)  
+     console.log("order1", order)     
+     fetch("http://localhost:3000/api/cameras/order" , {
           method: 'POST',
-          body: window.localStorage.setItem("order", JSON.stringify(sendStorage))  ,
-          headers: {
-              'Content-Type': 'application/json'
-          }
-     }
-       
-      fetch("http://localhost:3000/api/cameras/order/", order)
-          .then(res => res.text())
-          .then(res => console.log(res));
+          headers: new Headers({
+               "Content-Type": "application/json"//On 'précise' que l'objet envoyé sera au format JSON
+          }),
+          body: JSON.stringify(order), //l'objet envoyé doit donc être stringigié (JSON.stringify())
+     })
+     .then(result => {
+          result.json()
+          console.log("localStorage", localStorage)
+          console.log("result.text", result) //La requête passe bien 
+     })
+     .then(result => {
+          localStorage.clear()
+          console.log("localStorage2", localStorage)
+          console.log("result.json()", result) //La requête passe bien 
+          console.log("order2", order),     
+          console.log("orderContact2", order.contact),
+          console.log("orderProduct2", order.products)
+     });
+     alert('Commande prise en compte')
 })
-console.log("orderSend", localStorage.order)
+
 
 
 
@@ -115,6 +114,7 @@ console.log("orderSend", localStorage.order)
 // $orderForm.addEventListener('submit', () => {
 //      const order = { 
 //           contact: { //Objet contact
+          
 //                firstName: $firstName.value,
 //                lastName: $lastName.value,
 //                adress: $adress.value,
@@ -138,6 +138,7 @@ console.log("orderSend", localStorage.order)
 // }  
 
 //Condition pour afficher et utiliser notre commande
+let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
 if(!storageCommand) { //On vérifie si storageCommand existe
      //Si non
      storageCommand = {
