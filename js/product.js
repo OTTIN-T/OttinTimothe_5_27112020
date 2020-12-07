@@ -2,27 +2,13 @@
 //On initialise nos variables
 let camera;
 let lenses;
+let price;
 let $cameraProduct;
-
 //Appel URL
 const params = (new URL(document.location)).searchParams;
 const id = params.get('id'); //Obtiens l'id du produit
 
-//Appel de notre API
-    fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de notre produit
-    .then(result => result.json()) //Récupère le tableau json
-    .then(result => { //Donne un nom au tableau json récupéré
-        camera = result //Result deviens camera
-        $cameraProduct = document.querySelector('#camera-product')
-        lenses = document.createElement("select")
-        //Appel de nos functions
-        lenseList() 
-        cameraCard()
-    } 
-)  
-.catch((error) => {
-    console.log(error);
-})
+
 
 //Fonction pour le tableau lenses
 const lenseList = () => {
@@ -35,7 +21,7 @@ const lenseList = () => {
 }
 
 //Notre template camera card
-const cameraCard = () => {        
+const cameraCard = () => {   
     $cameraProduct.innerHTML += 
     `<div id="camera-card" class="card col-10 mx-auto mt-3 mb-3 border-dark shadow">
         <div class="background-image-product card-img-top" style="background-image: url(${camera.imageUrl})"></div>
@@ -73,10 +59,12 @@ const cameraCard = () => {
 
 //Fonction pour le prix
 const addToPrice = () => {
-    quantity = document.querySelector('#quantity').value //Récupère la valeur de la quantité
+    const quantity = document.querySelector('#quantity')/*.value*/ //Récupère la valeur de la quantité
     const $cameraPrice = document.querySelector('#camera-price')
-    $cameraPrice.innerHTML = camera.price
+    console.log("$cameraPrice", $cameraPrice)
     camera.price = (camera.price * quantity)//Notre prix est calculé en fonction de notre quanttité
+    console.log("camera.price", camera.price)  
+    $cameraPrice.innerHTML = camera.price
 }
 
 //Fonction pour le localStorage
@@ -97,8 +85,23 @@ const addToBasket = () => {
         quantity: quantity,
         price : camera.price * quantity,
         imageUrl: camera.imageUrl,
-        // priceTotal: price + price.length,
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     alert('L\'article a bien été ajouté à votre panier')
 }
+
+//Appel de notre API
+fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de notre produit
+.then(result => result.json()) //Récupère le tableau json
+.then(result => { //Donne un nom au tableau json récupéré
+    camera = result //Result deviens camera
+    $cameraProduct = document.querySelector('#camera-product')
+    lenses = document.createElement("select")
+    //Appel de nos functions
+    lenseList() 
+    cameraCard()
+} 
+)  
+.catch((error) => {
+console.log(error);
+})

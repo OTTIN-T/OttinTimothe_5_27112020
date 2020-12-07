@@ -116,7 +116,7 @@ if(!storage) { //On vérifie si storage existe
      storage = {
           products: [], //Créé un tableau vide
      }
-     if(storage.products.length <= 0){
+     if(storage.products.length <= 0 || localStorage.order){
           productsEmpty()
      }
 } else {
@@ -125,7 +125,7 @@ if(!storage) { //On vérifie si storage existe
      storage = JSON.parse(storage)
      products = storage.products //Un tableau avec un index = une ligne/items 
      //Condition pour afficher notre panier 
-     if(products.length >= 1){
+     if(products.length >= 1 && localStorage.order == undefined ){
           productsRow()
           productsFooter()
           subTotal()
@@ -136,6 +136,8 @@ if(!storage) { //On vérifie si storage existe
                productsTableInfo = result
                productsTable()       
           });   
+     } else if(products.length >= 1 && localStorage.order){ //Si on a déjà une commande affiche productsEmpty
+          productsEmpty()
      }
 }
 

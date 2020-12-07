@@ -61,13 +61,15 @@ const commandForm = () => {
      `)
 }
 
-$orderForm.addEventListener('submit', () => { 
+//Envoie de notre formulaire au submit
+$orderForm.addEventListener('submit', () => {  //On écoute l'envoi
+     //Créations des const avec les id CSS
      const $firstName = document.querySelector('#firstName');
      const $lastName = document.querySelector('#lastName');
      const $adress= document.querySelector('#adress');
      const $city = document.querySelector('#city');
      const $email = document.querySelector('#email');
-     console.log("$email", $email)
+     //Création de la variable order
      let order = {
           contact: { //Objet contact
                firstName: $firstName.value,
@@ -81,61 +83,47 @@ $orderForm.addEventListener('submit', () => {
      console.log("orderContact1", order.contact),
      console.log("orderProduct1", order.products)  
      console.log("order1", order)     
+     //Création de la requête POST
      fetch("http://localhost:3000/api/cameras/order" , {
-          method: 'POST',
+          method: 'POST', //Methode d'envoi
           headers: new Headers({
                "Content-Type": "application/json"//On 'précise' que l'objet envoyé sera au format JSON
           }),
-          body: JSON.stringify(order), //l'objet envoyé doit donc être stringigié (JSON.stringify())
+          body: JSON.stringify(order), //On stringify l'objet envoyé
      })
      .then(result => {
-          result.json()
-          console.log("localStorage", localStorage)
-          console.log("result.text", result) //La requête passe bien 
+          window.localStorage.setItem("order", JSON.stringify(order))
+          console.log("localStorage2", localStorage),
+          console.log("result", result), //La requête passe bien 
+          console.log("order2", order)   
      })
      .then(result => {
-          localStorage.clear()
-          console.log("localStorage2", localStorage)
-          console.log("result.json()", result) //La requête passe bien 
-          console.log("order2", order),     
-          console.log("orderContact2", order.contact),
-          console.log("orderProduct2", order.products)
+          //localStorage.clear()
      });
+     console.log("order3", order)  
      alert('Commande prise en compte')
 })
 
+//Fonction quand la commande est passée
+const orderSend = () => {
+     const $tableEmpty = document.querySelector('#table-empty')
+     const $orderSend = document.querySelector('#order-send')
+     $tableEmpty.classList.add("hide")
+     $orderForm.classList.add("hide")
+     $orderSend.innerHTML +=(`
+     <p>Votre commande a bien été enregistrer.</p>
+     <p>Votre numéro de commande est le : "Numéro de commande"</p>
+     <p>Merci de votre achat et à bientôt</p>
+     `)
+}
 
-
-
-//Fonction envoie formulaire
-//On initialise nos variables
-
-//On écoute l'envoi formulaire
-// $orderForm.addEventListener('submit', () => {
-//      const order = { 
-//           contact: { //Objet contact
-          
-//                firstName: $firstName.value,
-//                lastName: $lastName.value,
-//                adress: $adress.value,
-//                city: $city.value,
-//                email: $email.value
-//           }, 
-//           products: productsTotalId,  
-//      } 
-
-
-// })
-// console.log("products", productsTotalId)
-
- 
-// const options = {
-//      method: 'POST',
-//      body: JSON.stringify(user),
-//      headers: {
-//          'Content-Type': 'application/json'
-//      }
-// }  
+//Condition lorsque notre commande est passée
+if(localStorage.order){            
+     console.log("localStorage.order", localStorage)
+     orderSend()
+     // localStorage.removeItem("orinocoCamera") 
+     // localStorage.removeItem("sendCommand")
+}
 
 //Condition pour afficher et utiliser notre commande
 let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
@@ -144,7 +132,7 @@ if(!storageCommand) { //On vérifie si storageCommand existe
      storageCommand = {
           products: [], //Créé un tableau vide
      }
-     if(storageCommand.products.length <= 0){
+     if(storageCommand.products.length <= 0 && localStorage.order == undefined || localStorage.order <= 0){ //Condition de l'affichage du contenu de notre page
          commandEmpty()
      }
 } else {
