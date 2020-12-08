@@ -1,17 +1,13 @@
 //Script pour l'index
 //On initialise nos variables
 let camera;
-let lenses;
-let price;
-let quantity;
-let $cameraList;
+let $cameraList = document.querySelector('#camera-list');
 
 
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras")
 .then(async result_ => { //On rend asynchrone notre fonction
-    const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse
-    $cameraList = document.querySelector('#camera-list')
+    const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse 
     result.forEach(result => {
         camera = result //Result deviens camera
         //Appel de nos functions
@@ -25,10 +21,10 @@ fetch("http://localhost:3000/api/cameras")
 
 //Fonction pour le tableau lenses
 const lenseList = () => {
-    lenses = document.createElement("select")
+    const lenses = document.createElement("select")
     for (let i = 0; i < camera.lenses.length; i++) {
-        const option = document.createElement("option")
-        option.setAttribute("value", camera.lenses[i])
+        const option = document.createElement("option")//Créé notre liste option
+        option.setAttribute("value", camera.lenses[i])//Incrémente nos lenses à notre liste option   
         option.innerHTML = camera.lenses[i]
         lenses.appendChild(option)
     }

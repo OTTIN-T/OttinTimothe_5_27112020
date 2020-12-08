@@ -1,9 +1,8 @@
 //Page produit
 //On initialise nos variables
 let camera;
-let lenses;
-let price;
-let $cameraProduct;
+const $cameraProduct = document.querySelector('#camera-product')
+const lenses = document.createElement("select");
 
 //Appel URL
 const params = (new URL(document.location)).searchParams;
@@ -14,7 +13,7 @@ const id = params.get('id'); //Obtiens l'id du produit
 //Fonction pour le tableau lenses
 const lenseList = () => {
     for( let i = 0; i<camera.lenses.length; i++){
-        const option = document.createElement("option") //Créé nortre liste option
+        const option = document.createElement("option") //Créé notre liste option
         option.setAttribute("value", camera.lenses[i]) //Incrémente nos lenses à notre liste option               
         option.innerHTML = camera.lenses[i]
         lenses.appendChild(option)
@@ -96,8 +95,6 @@ fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de no
 .then(async result_ => {  //Récupère le tableau json 
     const result = await result_.json() //Donne un nom au tableau json récupéré
     camera = result //Result deviens camera
-    $cameraProduct = document.querySelector('#camera-product')
-    lenses = document.createElement("select")
     //Appel de nos functions
     lenseList() 
     cameraCard()

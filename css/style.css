@@ -2,11 +2,9 @@ nav{
     height: 110px; 
 }
 
-@media (max-width: 991px){
-    nav{
-        height: auto; 
-        margin-top: -25px;
-    }
+#logo{
+    width: 170px;
+    height: 130px;
 }
 
 .hide{
@@ -25,11 +23,12 @@ nav{
 
 #camera-card{
     padding: 0;
+    width: 60%;
 }
 
 .background-image-camera{
     width: 100%;
-    height: 250px;
+    height: 400px;
     background-size: cover;
     background-position: center;
 }

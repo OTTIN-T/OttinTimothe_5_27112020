@@ -1,11 +1,6 @@
 //Page order
-//Créations des const avec les id CSS
+//On initialise nos variables
 const $orderForm = document.querySelector('#order-form');
-let $firstName;
-let $lastName;
-let $adress;
-let $city;
-let $email;
 
 //Fonction pour notre commande vide
 const commandEmpty = () => {
@@ -71,30 +66,16 @@ const commandForm = () => {
 //Envoie de notre formulaire au submit
 $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
      //On sélectionne nos ID présent dans notre form
-     $lastName = document.querySelector('#lastName');
-     $firstName = document.querySelector('#firstName');
-     $adress = document.querySelector('#adress');
-     $city = document.querySelector('#city');
-     $email = document.querySelector('#email');
-
+     const $lastName = document.querySelector('#lastName');
+     const $firstName = document.querySelector('#firstName');
+     const $adress = document.querySelector('#adress');
+     const $city = document.querySelector('#city');
+     const $email = document.querySelector('#email');
      //Condition pour vérifier la validité des champs du form
-     if($lastName.value.trim().length < 1){ //Condition pour rendre le formulaire valide
-          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Nom")')
+     if($lastName.value.trim().length < 1 || $firstName.value.trim().length < 1 || $adress.value.trim().length < 1 || $city.value.trim().length < 1){ //trim() vérifie si les champs ne sont pas des espaces vides
+          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans l\'un des champs)')
           return;
      }
-     if($firstName.value.trim().length < 1){  //trim() ici vérifie que le champ ne soit pas juste une espace vide
-          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Prénom")')
-          return;
-     }
-     if($adress.value.trim().length < 1){ 
-          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Adresse")')
-          return;
-     }
-     if($city.value.trim().length < 1){ 
-          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Ville")')
-          return;
-     }
-
      //Condition pour vérifier un email valide
      const email = $email.value;
      const regexEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/ //Utilisation de regex 
@@ -103,7 +84,6 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
           alert("Merci de remplir un email correct");
           return false;
      }
-
      //Création de la variable order
      let order = {
           contact: { //Objet contact
