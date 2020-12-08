@@ -12,7 +12,9 @@ const commandEmpty = () => {
 //Fonction pour effacer notre bouton d'achat
 const commandFooter = () => {
      $commandFooter = document.querySelector('#confirm-command')
-     $commandFooter.classList.add("hide")
+     if($commandFooter){
+          $commandFooter.classList.add("hide")
+     }   
 }
 
 //Fonction pour notre formulaire de commande
@@ -91,16 +93,20 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
           }),
           body: JSON.stringify(order), //On stringify l'objet envoyé
      })
-     .then(result => {
-          window.localStorage.setItem("order", JSON.stringify(order))
-          console.log("localStorage2", localStorage),
-          console.log("result", result), //La requête passe bien 
-          console.log("order2", order)   
+     .then(result => { 
+          result.json() //BESOIN EXPLICATION 
+          .then(result => {
+               window.localStorage.setItem("orderResult", JSON.stringify(result.orderId)) //On stocke orderId dans le localStorage pour l'utiliser après
+               console.log("resultID", result.orderId)
+               window.localStorage.setItem("order", JSON.stringify(order))
+               console.log("localStorage2", localStorage.orderResult),
+               console.log("result", result), //La requête passe bien 
+               console.log("order2", order) 
+          })
      })
-     .then(result => {
-          //localStorage.clear()
-     });
-     console.log("order3", order)  
+     .catch(error => {
+          console.log(error);
+     })
      alert('Commande prise en compte')
 })
 
@@ -112,14 +118,13 @@ const orderSend = () => {
      $orderForm.classList.add("hide")
      $orderSend.innerHTML +=(`
      <p>Votre commande a bien été enregistrer.</p>
-     <p>Votre numéro de commande est le : "Numéro de commande"</p>
+     <p>Votre numéro de commande est le : ${localStorage.orderResult} </p>
      <p>Merci de votre achat et à bientôt</p>
      `)
 }
 
 //Condition lorsque notre commande est passée
 if(localStorage.order){            
-     console.log("localStorage.order", localStorage)
      orderSend()
      // localStorage.removeItem("orinocoCamera") 
      // localStorage.removeItem("sendCommand")
