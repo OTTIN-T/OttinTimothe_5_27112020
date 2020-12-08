@@ -9,18 +9,15 @@ let $cameraList;
 
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras")
-.then(result => {
-    result.json()
-    .then(result => {
-        $cameraList = document.querySelector('#camera-list')
-        result.forEach(result => {
-            camera = result //Result deviens camera
-            //Appel de nos functions
-            lenseList()
-            cameraCard()
-        })    
-    }) 
-        
+.then(async result_ => { //On rend asynchrone notre fonction
+    const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse
+    $cameraList = document.querySelector('#camera-list')
+    result.forEach(result => {
+        camera = result //Result deviens camera
+        //Appel de nos functions
+        lenseList()
+        cameraCard()
+    })
 })
 .catch(error => {
     console.log(error);
@@ -28,10 +25,10 @@ fetch("http://localhost:3000/api/cameras")
 
 //Fonction pour le tableau lenses
 const lenseList = () => {
-    lenses = document.createElement("select") 
-    for( let i = 0; i < camera.lenses.length; i++){
+    lenses = document.createElement("select")
+    for (let i = 0; i < camera.lenses.length; i++) {
         const option = document.createElement("option")
-        option.setAttribute("value", camera.lenses[i])                
+        option.setAttribute("value", camera.lenses[i])
         option.innerHTML = camera.lenses[i]
         lenses.appendChild(option)
     }
@@ -39,8 +36,8 @@ const lenseList = () => {
 
 //Notre template camera card
 const cameraCard = () => {
-    $cameraList.innerHTML += 
-    `<div id="camera-card" class="card col-lg-5 col-md-12 col-sm-12 col-12 mt-3 mb-3 border-dark shadow">
+    $cameraList.innerHTML +=
+        `<div id="camera-card" class="card col-lg-5 col-md-12 col-sm-12 col-12 mt-3 mb-3 border-dark shadow">
         <a href="../html/product.html?id=${camera._id}">
             <div class="background-image-camera card-img-top" style="background-image: url(${camera.imageUrl})"></div>
         </a>

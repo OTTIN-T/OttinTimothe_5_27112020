@@ -59,6 +59,8 @@ const productsFooter = () => {
 }
 
 
+// subTotal, quantTotal, nameTotal, idTotal  à combiner
+
 //Fonction pour calculer le total du prix dans notre tableau
 const subTotal = () => {
      productsCalcul = document.querySelector('#sub-total')

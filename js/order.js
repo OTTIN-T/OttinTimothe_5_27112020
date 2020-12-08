@@ -1,10 +1,15 @@
 //Page order
-//On déclare nos variables utiles à diffèrentes fonction
+//Créations des const avec les id CSS
 const $orderForm = document.querySelector('#order-form');
+let $firstName;
+let $lastName;
+let $adress;
+let $city;
+let $email;
 
 //Fonction pour notre commande vide
 const commandEmpty = () => {
-     $orderForm.innerHTML +=(`
+     $orderForm.innerHTML += (`
      <p>Vous n'avez pas de commande en cours</p>
      `)
 }
@@ -12,14 +17,14 @@ const commandEmpty = () => {
 //Fonction pour effacer notre bouton d'achat
 const commandFooter = () => {
      $commandFooter = document.querySelector('#confirm-command')
-     if($commandFooter){
+     if ($commandFooter) {
           $commandFooter.classList.add("hide")
-     }   
+     }
 }
 
 //Fonction pour notre formulaire de commande
 const commandForm = () => {
-     $orderForm.innerHTML +=(`
+     $orderForm.innerHTML += (`
      <p>Merci de compléter les différents champs pour finaliser votre commande</p>
      <div class="form-row mt-3">
          <div class="form-group col-md-6">
@@ -65,53 +70,78 @@ const commandForm = () => {
 
 //Envoie de notre formulaire au submit
 $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
-     //Créations des const avec les id CSS
-     const $firstName = document.querySelector('#firstName');
-     const $lastName = document.querySelector('#lastName');
-     const $adress= document.querySelector('#adress');
-     const $city = document.querySelector('#city');
-     const $email = document.querySelector('#email');
+     //On sélectionne nos ID présent dans notre form
+     $lastName = document.querySelector('#lastName');
+     $firstName = document.querySelector('#firstName');
+     $adress = document.querySelector('#adress');
+     $city = document.querySelector('#city');
+     $email = document.querySelector('#email');
+
+     //Condition pour vérifier la validité des champs du form
+     if($lastName.value.trim().length < 1){ //Condition pour rendre le formulaire valide
+          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Nom")')
+          return;
+     }
+     if($firstName.value.trim().length < 1){  //trim() ici vérifie que le champ ne soit pas juste une espace vide
+          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Prénom")')
+          return;
+     }
+     if($adress.value.trim().length < 1){ 
+          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Adresse")')
+          return;
+     }
+     if($city.value.trim().length < 1){ 
+          alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans le champ "Ville")')
+          return;
+     }
+
+     //Condition pour vérifier un email valide
+     const email = $email.value;
+     const regexEmail = /^[a-zA-Z0-9_-]+@[a-zA-Z0-9-]{2,}[.][a-zA-Z]{2,3}$/ //Utilisation de regex 
+     if (regexEmail.exec(email) == null) //exec() exécute la recherche d'une correspondance sur une chaîne de caractères donnée
+     {
+          alert("Merci de remplir un email correct");
+          return false;
+     }
+
      //Création de la variable order
      let order = {
           contact: { //Objet contact
-               firstName: $firstName.value,
-               lastName: $lastName.value,
-               address: $adress.value,
-               city: $city.value,
-               email: $email.value,
-          }, 
+               firstName: $firstName.value.trim(), //trim() supprime les espaces inutiles rajouté par l'utilisateur si il y en a
+               lastName: $lastName.value.trim(),
+               address: $adress.value.trim(),
+               city: $city.value.trim(),
+               email: $email.value.trim(),
+          },
           products: productsTotalId,  //Tableau des id des items
-     };  
-     console.log("orderContact1", order.contact),
-     console.log("orderProduct1", order.products)  
-     console.log("order1", order)     
+     };
      //Création de la requête POST
-     fetch("http://localhost:3000/api/cameras/order" , {
+     fetch("http://localhost:3000/api/cameras/order", {
           method: 'POST', //Methode d'envoi
           headers: new Headers({
                "Content-Type": "application/json"//On 'précise' que l'objet envoyé sera au format JSON
           }),
           body: JSON.stringify(order), //On stringify l'objet envoyé
      })
-     .then(async result_ => { 
-          const result = await result_.json() //On attend le résultat de resul_.json() pour exécuter le reste
+          .then(async result_ => {
+               const result = await result_.json() //On attend le résultat de resul_.json() pour exécuter le reste
                window.localStorage.setItem("orderResult", JSON.stringify(result.orderId)) //On stocke orderId dans le localStorage pour l'utiliser après
                window.localStorage.setItem("order", JSON.stringify(order)) //On stock notre order dans localStorage pour l'utiliser après
-               console.log("result", result) //La requête passe bien 
-     })
-     .catch(error => {
-          console.log(error);
-     })
-     alert('Commande prise en compte')
+               console.log("result", result.contact) //La requête passe bien 
+          })
+          .catch(error => {
+               console.log(error);
+          })
+     alert('Commande prise en compte. Merci de votre achat !')
 })
 
 //Fonction quand la commande est passée
 const orderSend = () => {
-     const $tableEmpty = document.querySelector('#table-empty') 
+     const $tableEmpty = document.querySelector('#table-empty')
      const $orderSend = document.querySelector('#order-send')
      $tableEmpty.classList.add("hide") //Ajout de la classe "hide" si la commande est bien passé
      $orderForm.classList.add("hide")
-     $orderSend.innerHTML +=(`
+     $orderSend.innerHTML += (`
      <p>Votre commande a bien été enregistrée.</p>
      <p>Votre numéro de commande est le : ${localStorage.orderResult}.</p>
      <p>Merci de votre achat et à bientôt</p>
@@ -119,21 +149,21 @@ const orderSend = () => {
 }
 
 //Condition lorsque notre commande est passée
-if(localStorage.order){            
+if (localStorage.order) {
      orderSend()
-     localStorage.removeItem("orinocoCamera") 
+     localStorage.removeItem("orinocoCamera")
      localStorage.removeItem("sendCommand")
 }
 
 //Condition pour afficher et utiliser notre commande
 let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
-if(!storageCommand) { //On vérifie si storageCommand existe
+if (!storageCommand) { //On vérifie si storageCommand existe
      //Si non
      storageCommand = {
           products: [], //Créé un tableau vide
      }
-     if(storageCommand.products.length <= 0 && localStorage.order == undefined || localStorage.order <= 0){ //Condition de l'affichage du contenu de notre page
-         commandEmpty()
+     if (storageCommand.products.length <= 0 && localStorage.order == undefined || localStorage.order <= 0) { //Condition de l'affichage du contenu de notre page
+          commandEmpty()
      }
 } else {
      //si oui
@@ -141,9 +171,9 @@ if(!storageCommand) { //On vérifie si storageCommand existe
      storageCommand = JSON.parse(storageCommand)
      products = storageCommand.products
      //Condition pour afficher notre panier
-     if(products.length >= 1){
-          commandForm()      
-          commandFooter()  
+     if (products.length >= 1) {
+          commandForm()
+          commandFooter()
      }
 }
 
