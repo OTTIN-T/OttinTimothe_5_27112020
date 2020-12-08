@@ -93,16 +93,11 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
           }),
           body: JSON.stringify(order), //On stringify l'objet envoyé
      })
-     .then(result => { 
-          result.json() //BESOIN EXPLICATION 
-          .then(result => {
+     .then(async result_ => { 
+          const result = await result_.json() //On attend le résultat de resul_.json() pour exécuter le reste
                window.localStorage.setItem("orderResult", JSON.stringify(result.orderId)) //On stocke orderId dans le localStorage pour l'utiliser après
-               console.log("resultID", result.orderId)
-               window.localStorage.setItem("order", JSON.stringify(order))
-               console.log("localStorage2", localStorage.orderResult),
-               console.log("result", result), //La requête passe bien 
-               console.log("order2", order) 
-          })
+               window.localStorage.setItem("order", JSON.stringify(order)) //On stock notre order dans localStorage pour l'utiliser après
+               console.log("result", result) //La requête passe bien 
      })
      .catch(error => {
           console.log(error);
@@ -112,13 +107,13 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
 
 //Fonction quand la commande est passée
 const orderSend = () => {
-     const $tableEmpty = document.querySelector('#table-empty')
+     const $tableEmpty = document.querySelector('#table-empty') 
      const $orderSend = document.querySelector('#order-send')
-     $tableEmpty.classList.add("hide")
+     $tableEmpty.classList.add("hide") //Ajout de la classe "hide" si la commande est bien passé
      $orderForm.classList.add("hide")
      $orderSend.innerHTML +=(`
-     <p>Votre commande a bien été enregistrer.</p>
-     <p>Votre numéro de commande est le : ${localStorage.orderResult} </p>
+     <p>Votre commande a bien été enregistrée.</p>
+     <p>Votre numéro de commande est le : ${localStorage.orderResult}.</p>
      <p>Merci de votre achat et à bientôt</p>
      `)
 }
@@ -126,8 +121,8 @@ const orderSend = () => {
 //Condition lorsque notre commande est passée
 if(localStorage.order){            
      orderSend()
-     // localStorage.removeItem("orinocoCamera") 
-     // localStorage.removeItem("sendCommand")
+     localStorage.removeItem("orinocoCamera") 
+     localStorage.removeItem("sendCommand")
 }
 
 //Condition pour afficher et utiliser notre commande

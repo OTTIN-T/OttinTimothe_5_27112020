@@ -125,13 +125,13 @@ if(!storage) { //On vérifie si storage existe
      storage = JSON.parse(storage)
      products = storage.products //Un tableau avec un index = une ligne/items 
      //Condition pour afficher notre panier 
-     if(products.length >= 1 && localStorage.order == undefined ){
+     if(products.length >= 1 && (localStorage.order == undefined || localStorage.order) ){
           productsRow()
           productsFooter()
           subTotal()
           quantTotal()
           nameTotal()
-          idTotal()
+          idTotal() 
           products.forEach((result) => { //Boucle pour incrémenter le tableau
                productsTableInfo = result
                productsTable()       
@@ -157,7 +157,6 @@ const sendCommand = () => {
          quantity: productsTotalQuant,
          price: productsTotalSub,
          id: productsTotalId,
-     //     priceTotal: productsTotalSub.sum(),
      })
      if(order.products.length > 1){ //Supprime anciennes commande si nouvelle commande
           const pos = 1
@@ -165,6 +164,8 @@ const sendCommand = () => {
           order.products.splice(pos, n)
      }
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
+     localStorage.removeItem("orderResult") //On nettoie notre localStorage pour passer une nouvelle commande
+     localStorage.removeItem("order")
      alert('Commande envoyé')
 }
 
