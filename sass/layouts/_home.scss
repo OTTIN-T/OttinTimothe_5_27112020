@@ -1,65 +1,109 @@
-body{
-    color: $colour-text;
+body {
+  color: $colour-text;
 }
 
-a{
-    color: $colour-text;
+a {
+  color: $colour-text !important;
+  text-decoration: none !important;
+}
+
+//Section title
+.section-title {
+  padding: 2rem 0 2rem 0;
+  border-bottom: $border $colour-border;
+  border-right: $border $colour-border;
+  border-left: $border $colour-border;
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.35);
+  font-family: $font-texte;
+}
+
+.focus-in-expand-fwd {
+  //Animation du titre
+  animation: focus-in-expand-fwd 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both,
+    color-change-3x 1s ease-in-out infinite alternate both;
+}
+
+//Section sous-titre
+.sub-title {
+  font-family: $font-texte;
+}
+
+.text-sub-title {
+  font-family: $font-sous-titre;
+  font-weight: 600;
+}
+
+//Section liste camera
+#camera-list {
+  flex-wrap: wrap;
+  justify-content: space-around;
+  flex-direction: initial;
+  box-shadow: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.375);
+  border: $border $colour-border;
+}
+
+#camera-card {
+  padding: 0;
+  border: $border $colour-border;
+}
+
+#card-title {
+  font-family: $font-texte;
+}
+
+#card-text {
+  font-family: $font-sous-titre;
+}
+
+.scale-down-center {
+  //Animation des cards
+  -webkit-animation: scale-down-center 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94)
+    both;
+  animation: scale-down-center 0.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+.scale-up-center:hover {
+  //Animation des cards au hover
+  -webkit-animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1)
+    both;
+  animation: scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+#camera-infos {
+  justify-content: center;
+  display: flex;
+  border: $border $colour-border;
+}
+
+#camera-infos:hover {
+  //Animation du boutton au hover
+  -webkit-animation: color-change-3x 1s ease-in-out infinite alternate both,
+    scale-up-center 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: color-change-3x 1s ease-in-out infinite alternate both,
+    scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}
+
+.background-image-camera {
+  width: 100%;
+  height: 400px;
+  background-size: cover;
+  background-position: center;
 }
 
 
- .hide{
-   display: none;  
- }
- 
- #camera-list{
-     flex-wrap: wrap;
-     justify-content: space-around;
-     flex-direction: initial;
- }
- 
- #camera-card{
-     padding: 0;
- }
- 
- .background-image-camera{
-     width: 100%;
-     height: 400px;
-     background-size: cover;
-     background-position: center;
- }
- 
- .background-image-product{
-     width: 100%;
-     height: 400px;
-     background-size: cover;
-     background-position: center;
- }
- 
- #camera-lense{
-     padding: 0;
- }
- 
- .camera-quantity-selector{
-     display: inline-grid;
- }
- 
- 
- #camera-price{
-     display: flex;
-     justify-content: center;
-     align-items: center;
- }
- 
- #camera-buy{
-     justify-content: center;
-     display: flex;
- }
- 
- .selectQuantity{
-     justify-content: center;
-     display: flex;
- }
- 
- #title-table-empty{
-     justify-content:  center;
- }
+//Media-queries
+@media (max-width: 767px) {
+  .background-image-camera {
+    height: 300px;
+  }
+}
+
+@media (max-width: 425px) {
+  .background-image-camera {
+    height: 200px;
+  }
+
+  #camera-infos {
+    padding: 1rem 4rem 1rem 4rem;
+  }
+}

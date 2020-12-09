@@ -1,11 +1,24 @@
-footer{
-     height: 80px;
-     margin-bottom: 0px !important;
-     margin-top: 4rem;
- }
- 
- .fa-twitter, .fa-facebook-f, .fa-tripadvisor{
-     font-size: 25px;
-     color: #E9ECEF;
-     padding-top: 2rem;
- }
+footer {
+  height: 80px;
+  margin-bottom: 0px !important;
+  margin-top: 4rem;
+  border-top: $border $colour-border;
+}
+
+.fa-twitter,
+.fa-facebook-f,
+.fa-tripadvisor {
+  font-size: 25px;
+  color: #000000;
+  padding-top: 2rem;
+}
+
+.fa-twitter:hover,
+.fa-facebook-f:hover,
+.fa-tripadvisor:hover {
+  //Animation au hover
+  -webkit-animation: color-change-3x 1s ease-in-out infinite alternate both,
+    scale-up-center 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  animation: color-change-3x 1s ease-in-out infinite alternate both,
+    scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+}

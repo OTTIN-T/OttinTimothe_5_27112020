@@ -1,13 +1,59 @@
-nav{
-     height: 110px; 
-     border-bottom: 2px solid $colour-border;
- }
- 
- #logo{
-     width: 170px;
-     height: 130px;
- }
+nav {
+  height: 110px;
+  border-bottom: $border $colour-border;
+  font-family: $font-texte;
+}
 
- #navbar-content{
-     justify-content: flex-end;
- }
+#navbarSupportedContent {
+  justify-content: flex-end;
+}
+
+//Modification du bouton menu en responsive
+.navbar-light .navbar-toggler {
+  //Couleur du bouton pour le menu responsive
+  color: $colour-border !important;
+  border-color: $colour-border !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+  //Modification opacity du svg
+  background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 30 30'%3e%3cpath stroke='rgba%280, 0, 0, 1%29' stroke-linecap='round' stroke-miterlimit='10' stroke-width='2' d='M4 7h22M4 15h22M4 23h22'/%3e%3c/svg%3e") !important;
+}
+
+.navbar-toggler:focus {
+  //Shadow autour du bouton menu en responsive
+  box-shadow: 0 0 0 0.05rem !important;
+}
+
+//Effet menu
+.slide-in-top-first {
+  animation: slide-in-top 1s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.slide-in-top-second {
+  animation: slide-in-top 1.3s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+.slide-in-top-third {
+  animation: slide-in-top 1.6s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+}
+
+//Effet menu survol
+.text-blur-out:hover {
+  animation: text-blur-out 0.6s cubic-bezier(0.55, 0.085, 0.68, 0.53) both;
+}
+
+//Media queries
+@media (max-width: 991px){
+  nav {
+    height: auto;
+    margin-top: -25px;
+  }
+  .slide-in-top-first {
+    animation: none;
+  }
+  .slide-in-top-second {
+    animation: none;
+  }
+  .slide-in-top-third {
+    animation: none;
+  }
+}
