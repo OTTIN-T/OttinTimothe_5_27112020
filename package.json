@@ -1,0 +1,21 @@
+{
+  "name": "ottintimothe_5_27112020",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "sass": "sass --watch ./sass/main.scss:./sass/css/style.css --style compressed",
+    "prefix": "postcss ./sass/css/style.css --use autoprefixer -d ./sass/css/prefixed/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/OTTIN-T/OttinTimothe_5_27112020.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "browserslist": "last 4 versions",
+  "bugs": {
+    "url": "https://github.com/OTTIN-T/OttinTimothe_5_27112020/issues"
+  },
+  "homepage": "https://github.com/OTTIN-T/OttinTimothe_5_27112020#readme"
+}

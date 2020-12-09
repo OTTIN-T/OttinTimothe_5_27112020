@@ -8,12 +8,12 @@
 
   #camera-card {
     width: 90%;
-    height: 86%;
+    height: 25%;
   }
   
   .card-body {
      font-size: 16px;
-     height: 395px;
+     height: 0px;
    }
  
    .card-title {
