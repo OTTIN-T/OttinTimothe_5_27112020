@@ -11,14 +11,14 @@ footer {
   font-size: 25px;
   color: #000000;
   padding-top: 2rem;
+  transition: transform 0.5s ease-in-out;
 }
 
 .fa-twitter:hover,
 .fa-facebook-f:hover,
 .fa-tripadvisor:hover {
   //Animation au hover
-  -webkit-animation: color-change-3x 1s ease-in-out infinite alternate both,
-    scale-up-center 1s cubic-bezier(0.39, 0.575, 0.565, 1) both;
-  animation: color-change-3x 1s ease-in-out infinite alternate both,
-    scale-up-center 0.4s cubic-bezier(0.39, 0.575, 0.565, 1) both;
+  transform: scale(1.2);
+  -webkit-animation: color-change 1s ease-in-out infinite alternate both;
+  animation: color-change 1s ease-in-out infinite alternate both;
 }

@@ -31,23 +31,23 @@
 
 /**
  * ----------------------------------------------
- * animation text-blur-out pour le menu au hover
+ * animation text-blur pour le menu au hover
  * ----------------------------------------------
  */
-@-webkit-keyframes text-blur-out {
+@-webkit-keyframes text-blur {
   0% {
-    -webkit-filter: blur(0.01);
-    filter: blur(0.01);
+    -webkit-filter: blur(0.01px);
+    filter: blur(0.01px);
   }
   100% {
     -webkit-filter: blur(12px) opacity(0%);
     filter: blur(12px) opacity(0%);
   }
 }
-@keyframes text-blur-out {
+@keyframes text-blur {
   0% {
-    -webkit-filter: blur(0.01);
-    filter: blur(0.01);
+    -webkit-filter: blur(0.01px);
+    filter: blur(0.01px);
   }
   100% {
     -webkit-filter: blur(12px) opacity(0%);
@@ -58,10 +58,10 @@
 // Keyframes page index
 /**
  * ----------------------------------------
- * animation focus-in-expand-fwd du titre
+ * animation focus-in-expand du titre
  * ----------------------------------------
  */
-@-webkit-keyframes focus-in-expand-fwd {
+@-webkit-keyframes focus-in-expand {
   0% {
     letter-spacing: -0.5em;
     -webkit-transform: translateZ(-800px);
@@ -78,7 +78,7 @@
     opacity: 1;
   }
 }
-@keyframes focus-in-expand-fwd {
+@keyframes focus-in-expand {
   0% {
     letter-spacing: -0.5em;
     -webkit-transform: translateZ(-800px);
@@ -150,10 +150,10 @@
 
 /**
  * --------------------------------------------
- * animation color-change-3x du button au hover
+ * animation color-change du button au hover
  * --------------------------------------------
  */
-@-webkit-keyframes color-change-3x {
+@-webkit-keyframes color-change {
   0% {
     color: #cf7e4c;
   }
@@ -167,7 +167,7 @@
     color: #965eee;
   }
 }
-@keyframes color-change-3x {
+@keyframes color-change {
   0% {
     color: #cf7e4c;
   }
@@ -181,3 +181,44 @@
     color: #965eee;
   }
 }
+
+// Keyframes page product
+
+/**
+ * ----------------------------------------
+ * animation swing-in-top-fwd des cards
+ * ----------------------------------------
+ */
+ @-webkit-keyframes swing-in-top-fwd {
+  0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+}
+@keyframes swing-in-top-fwd {
+  0% {
+    -webkit-transform: rotateX(-100deg);
+            transform: rotateX(-100deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 0;
+  }
+  100% {
+    -webkit-transform: rotateX(0deg);
+            transform: rotateX(0deg);
+    -webkit-transform-origin: top;
+            transform-origin: top;
+    opacity: 1;
+  }
+}
+

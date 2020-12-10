@@ -23,20 +23,20 @@ const lenseList = () => {
 //Notre template camera card
 const cameraCard = () => {   
     $cameraProduct.innerHTML += 
-    `<div id="camera-card" class="card col-10 mx-auto mt-3 mb-3 border-dark shadow">
-        <div class="background-image-product card-img-top" style="background-image: url(${camera.imageUrl})"></div>
+    `<div id="camera-item" class="card col-10 mx-auto mt-5 mb-5 shadow">
+        <div class="background-image-product card-img-top mx-auto" style="background-image: url(${camera.imageUrl})"></div>
         <div class="card-body">
             <h5 class="card-title">${camera.name}</h5>
             <p class="card-text">${camera.description}</p> 
-            <div id="camera-lense"class="input-group col-12 mx-auto">
-                <div class="input-group-prepend">
+            <div id="camera-lense"class="input-group col-12">
+                <div class="input-group-prepend col-sm-4 col-12 d-none d-sm-block">
                     <label class="input-group-text" for="inputGroupSelect01">Lentilles</label>
                 </div>
-                <select class="custom-select col-lg-4 col-md-4 col-sm-4 col-12" id="inputGroupSelect01">
+                <select class="custom-select col-sm-4 col-12" id="inputGroupSelect01">
                     ${lenses.innerHTML}
                 </select>
-                <label class="col-3 camera-quantity-selector" for="camera-quantity">Quantité: 
-                    <select id="quantity" name="camera-quantity">
+                <label class="camera-quantity-selector col-sm-4 col-12 text-center " for="camera-quantity">Quantité: 
+                    <select id="quantity" class="text-center mx-auto" name="camera-quantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -48,10 +48,10 @@ const cameraCard = () => {
                         <option value="9">9</option>
                     </select>
                 </label>
-                <p id="camera-price" class="card-text col-lg-3 col-md-3 col-sm-3 col-12 mx-auto">${camera.price} €</p>
+                <p id="camera-price" class="card-text col-sm-4 col-12 mx-auto mt-3">${camera.price} €</p>
             </div>
             <div class="col-12 mt-3">
-                <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-products btn btn-secondary col-6 mx-auto mt-1">Ajouter au panier</button>
+                <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-products btn col-sm-6 col-12 mx-auto">Ajouter au panier</button>
             </div>               
         </div>   
     </div>`

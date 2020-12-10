@@ -1,43 +1,153 @@
-// .background-image-product {
-//   width: 100%;
-//   height: 400px;
-//   background-size: cover;
-//   background-position: center;
-// }
+#camera-product {
+  padding: 0;
+  border: $border $colour-border;
+  //Animation des cards
+  -webkit-animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    both;
+  animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
 
-// #camera-lense {
-//   padding: 0;
-// }
+#camera-item {
+  padding: 0;
+  border: $border $colour-border;
+  width: 50%;
+}
 
-// .camera-quantity-selector {
-//   display: inline-grid;
-// }
+.background-image-product {
+  height: 400px;
+  background-size: cover;
+  background-position: center;
+}
 
-// #camera-price {
-//   display: flex;
-//   justify-content: center;
-//   align-items: center;
-// }
+.input-group-text {
+  background-color: white !important;
+  border-top: $border $colour-border !important;
+  border-bottom: $border $colour-border !important;
+  border-left: $border $colour-border !important;
+  border-right: none !important;
+  border-radius: 0.25rem 0rem 0rem 0.25rem !important;
+  height: 53px;
+}
 
-// .selectQuantity {
-//   justify-content: center;
-//   display: flex;
-// }
+#inputGroupSelect01 {
+  border-top: $border $colour-border;
+  border-bottom: $border $colour-border;
+  border-right: none;
+  border-left: none;
+  height: 53px;
+  padding: 10px;
+}
 
-// .hide {
-//   display: none;
-// }
+select:focus {
+  outline: none !important;
+}
 
-// #title-table-empty {
-//   justify-content: center;
-// }
-// @media (max-width: 991px){
-//      #camera-lense {
-//           font-size: 14px;
-//         } 
-// }
-// @media (max-width: 425px) {
-//      .background-image-product {
-//        height: 250px;
-//      }
+.camera-quantity-selector {
+  border-top: $border $colour-border;
+  border-bottom: $border $colour-border;
+  border-right: $border $colour-border;
+  border-radius: 0rem 0.25rem 0.25rem 0rem !important;
+  display: inline-grid;
+}
+
+#quantity {
+  border: none;
+}
+
+#camera-lense {
+  padding: 0;
+}
+
+#camera-price {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.selectQuantity {
+  justify-content: center;
+  display: flex;
+}
+
+#camera-buy {
+  justify-content: center;
+  display: flex;
+  border: $border $colour-border;
+  transition: transform 0.3s ease-in-out;
+
+  &:hover {
+    //Animation du boutton au hover
+    transform: scale(1.1);
+    -webkit-animation: color-change 1s ease-in-out infinite alternate both;
+    animation: color-change 1s ease-in-out infinite alternate both;
+  }
+}
+
+@media (max-width: 991px) {
+  #camera-item {
+    width: 90%;
+  }
+  #camera-lense {
+    font-size: 14px;
+  }
+}
+
+@media (min-width: 576px) {
+  .container,
+  .container-sm {
+    max-width: 100% !important;
+  }
+}
+
+@media (max-width: 575px) {
+  #camera-lense {
+    border: $border $colour-border !important;
+    border-radius: 0.25rem !important;
+  }
+
+  .input-group-text,
+  #inputGroupSelect01,
+  .camera-quantity-selector {
+    border-top: none !important;
+    border-bottom: none !important;
+    border-left: none !important;
+    border-right: none !important;
+    border-radius: 0.25rem 0.25rem 0rem 0rem !important;
+  }
+
+  #inputGroupSelect01 {
+    border-left: 1px solid #000 !important;
+    border-radius: 0 !important;
+    padding-left: 6rem;
+  }
+
+  .camera-quantity-selector{
+       display: initial;
+  }
+}
+
+@media (max-width: 425px) {
+  .background-image-product {
+    height: 250px;
+  }
+
+  #inputGroupSelect01 {
+     padding-left: 5rem;
+   }
+}
+
+@media (max-width: 380px){
+     #inputGroupSelect01 {
+          padding-left: 3rem;
+        }
+}
+
+
+
+//    .hide {
+//      display: none;
+//    }
+
+//    #title-table-empty {
+//      justify-content: center;
 //    }
