@@ -1,0 +1,36 @@
+.main-order{
+     margin-bottom: 20rem;
+}
+
+.caption-order {
+  margin-bottom: -5rem;
+}
+
+.caption-form {
+  font-size: 19px;
+}
+
+.hide {
+  //Class pour faire disparaître le bouton du tableau
+  display: none !important;
+}
+
+.form-parent {
+  font-family: $font-texte;
+  border: $border $colour-border !important;
+  padding-top: 2rem;
+  margin-top: 7rem;
+  // Animation form
+  -webkit-animation: swing-in-top-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+    both;
+  animation: swing-in-top-fwd 3s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+}
+
+.form-control {
+  border: $border $colour-border !important;
+
+  &:focus {
+    box-shadow: 0 0 0 0.25rem #965eee !important;
+    animation: color-change 1s ease-in-out infinite alternate both;
+  }
+}

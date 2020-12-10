@@ -84,20 +84,3 @@ h1 {
   background-size: cover;
   background-position: center;
 }
-
-//Media-queries
-@media (max-width: 767px) {
-  .background-image-camera {
-    height: 300px;
-  }
-}
-
-@media (max-width: 425px) {
-  .background-image-camera {
-    height: 200px;
-  }
-
-  #camera-infos {
-    padding: 1rem 4rem 1rem 4rem;
-  }
-}

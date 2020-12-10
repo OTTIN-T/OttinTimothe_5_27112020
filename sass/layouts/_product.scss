@@ -1,10 +1,11 @@
 #camera-product {
+  font-family: $font-texte;
   padding: 0;
   border: $border $colour-border;
   //Animation des cards
-  -webkit-animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.32, 1.275)
+  -webkit-animation: swing-in-top-fwd 2s cubic-bezier(0.175, 0.885, 0.32, 1.275)
     both;
-  animation: swing-in-top-fwd 1s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
+  animation: swing-in-top-fwd 2s cubic-bezier(0.175, 0.885, 0.32, 1.275) both;
 }
 
 #camera-item {
@@ -36,6 +37,7 @@
   border-left: none;
   height: 53px;
   padding: 10px;
+  cursor: pointer;
 }
 
 select:focus {
@@ -52,6 +54,7 @@ select:focus {
 
 #quantity {
   border: none;
+  cursor: pointer;
 }
 
 #camera-lense {
@@ -81,73 +84,8 @@ select:focus {
     -webkit-animation: color-change 1s ease-in-out infinite alternate both;
     animation: color-change 1s ease-in-out infinite alternate both;
   }
-}
 
-@media (max-width: 991px) {
-  #camera-item {
-    width: 90%;
-  }
-  #camera-lense {
-    font-size: 14px;
+  &:focus{
+    box-shadow: 0 0 0 0.25rem #cf7e4c !important;
   }
 }
-
-@media (min-width: 576px) {
-  .container,
-  .container-sm {
-    max-width: 100% !important;
-  }
-}
-
-@media (max-width: 575px) {
-  #camera-lense {
-    border: $border $colour-border !important;
-    border-radius: 0.25rem !important;
-  }
-
-  .input-group-text,
-  #inputGroupSelect01,
-  .camera-quantity-selector {
-    border-top: none !important;
-    border-bottom: none !important;
-    border-left: none !important;
-    border-right: none !important;
-    border-radius: 0.25rem 0.25rem 0rem 0rem !important;
-  }
-
-  #inputGroupSelect01 {
-    border-left: 1px solid #000 !important;
-    border-radius: 0 !important;
-    padding-left: 6rem;
-  }
-
-  .camera-quantity-selector{
-       display: initial;
-  }
-}
-
-@media (max-width: 425px) {
-  .background-image-product {
-    height: 250px;
-  }
-
-  #inputGroupSelect01 {
-     padding-left: 5rem;
-   }
-}
-
-@media (max-width: 380px){
-     #inputGroupSelect01 {
-          padding-left: 3rem;
-        }
-}
-
-
-
-//    .hide {
-//      display: none;
-//    }
-
-//    #title-table-empty {
-//      justify-content: center;
-//    }

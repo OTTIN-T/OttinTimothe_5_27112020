@@ -5,7 +5,7 @@ const $orderForm = document.querySelector('#order-form');
 //Fonction pour notre commande vide
 const commandEmpty = () => {
      $orderForm.innerHTML += (`
-     <p>Vous n'avez pas de commande en cours</p>
+     <p class="text-center">Vous n'avez pas de commande en cours</p>
      `)
 }
 
@@ -20,8 +20,8 @@ const commandFooter = () => {
 //Fonction pour notre formulaire de commande
 const commandForm = () => {
      $orderForm.innerHTML += (`
-     <p>Merci de compléter les différents champs pour finaliser votre commande</p>
-     <div class="form-row mt-3">
+     <h3 class="caption-form text-center">Merci de compléter les différents champs pour finaliser votre commande</h3>
+     <div class="row mt-3">
          <div class="form-group col-md-6">
            <label for="lastName">Nom</label>
            <input required type="text" class="form-control" id="lastName">
@@ -39,7 +39,7 @@ const commandForm = () => {
          <label for="inputComplement">Complément</label>
          <input type="text" class="form-control" id="inputComplement" placeholder="Appartement, étages...">
      </div>
-     <div class="form-row">
+     <div class="row">
          <div class="form-group col-md-6">
              <label for="city">Ville</label>
              <input required type="text" class="form-control" id="city">
@@ -59,7 +59,7 @@ const commandForm = () => {
            <input required type="email" class="form-control" id="email">
          </div>
      </div>
-     <button type="submit" class="btn btn-primary mt-3">Commander</button>
+     <button type="submit" id="camera-buy" class="btn col-sm-4 col-12 mx-auto mx-auto mt-4 mb-4">Commander</button>
      `)
 }
 
