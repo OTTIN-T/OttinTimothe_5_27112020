@@ -45,7 +45,9 @@ const tableFooter = () => {
      $productsFooter.innerHTML += (`
      <tr class="container">
           <td class="text-center">
-               <p><span></span></p>
+               <a href="../index.html">
+                    <button type="button" onclick="clearCommand()" id="clear-command" class="btn col-md-6 col-12 mx-auto d-none d-sm-block">Annuler la commande</button>
+               </a>
           </td>
           <td class="text-center">    
                <a href="order.html">
@@ -127,7 +129,13 @@ const sendCommand = () => {
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
      localStorage.removeItem("orderResult") //On nettoie notre localStorage pour passer une nouvelle commande
      localStorage.removeItem("order")
-     alert(`Votre commande d'un total de ${productsCalcul.textContent} € est envoyé. Vous allez être redirigé pour finaliser votre commande.`)
+     alert(`Votre commande d'un total de ${productsCalcul.textContent} € est envoyée. Vous allez être redirigé pour finaliser votre commande.`)
+}
+
+//Fonction pour annuler la commande
+const clearCommand = () => {
+     localStorage.clear() //Vide le local storage
+     alert(`Commande annulée. Vous allez être redirigé vers la page d'accueil.`)
 }
 
 

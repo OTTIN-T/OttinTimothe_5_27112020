@@ -72,7 +72,7 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
      const $city = document.querySelector('#city');
      const $email = document.querySelector('#email');
      //Condition pour vérifier la validité des champs du form
-     if ($lastName.value.trim().length < 1 || $firstName.value.trim().length < 1 || $adress.value.trim().length < 1 || $city.value.trim().length < 1) { //trim() vérifie si les champs ne sont pas des espaces vides
+     if($lastName.value.trim().length < 1 || $firstName.value.trim().length < 1 || $adress.value.trim().length < 1 || $city.value.trim().length < 1){ //trim() vérifie si les champs ne sont pas des espaces vides
           alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans l\'un des champs)')
           return;
      }

@@ -38,9 +38,16 @@
   #camera-lense {
     font-size: 14px;
   }
-
   .fa-arrow-left {
     margin-left: 2rem;
+  }
+
+  //Responsive Footer
+  .main-order{
+    margin-bottom: 0rem;
+  }
+  .main-basket{
+    margin-bottom: 12rem;
   }
 }
 
@@ -70,7 +77,6 @@
     border: $border $colour-border !important;
     border-radius: 0.25rem !important;
   }
-
   .input-group-text,
   #inputGroupSelect01,
   .camera-quantity-selector {
@@ -80,17 +86,14 @@
     border-right: none !important;
     border-radius: 0.25rem 0.25rem 0rem 0rem !important;
   }
-
   #inputGroupSelect01 {
     border-left: 1px solid #000 !important;
     border-radius: 0 !important;
     padding-left: 6rem;
   }
-
   .camera-quantity-selector {
     display: initial;
   }
-
   .fa-arrow-left {
     margin-left: 1.5rem;
   }
@@ -106,15 +109,12 @@
   .background-image-product {
     height: 250px;
   }
-
   #inputGroupSelect01 {
     padding-left: 5rem;
   }
-
   .background-image-camera {
     height: 200px;
   }
-
   #camera-infos {
     padding: 1rem 4rem 1rem 4rem;
   }
@@ -125,8 +125,12 @@
   #inputGroupSelect01 {
     padding-left: 3rem;
   }
-
   .fa-arrow-left {
     margin-left: 0.5rem;
+  }
+
+  // Responsive footer
+  .main-basket{
+    margin-bottom: 11rem;
   }
 }

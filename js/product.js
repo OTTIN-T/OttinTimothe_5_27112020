@@ -8,7 +8,23 @@ const lenses = document.createElement("select");
 const params = (new URL(document.location)).searchParams;
 const id = params.get('id'); //Obtiens l'id du produit
 
+//Appel de notre API
+fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de notre produit
+    .then(async result_ => {  //Récupère le tableau json 
+        const result = await result_.json() //Donne un nom au tableau json récupéré
+        camera = result //Result deviens camera
+        //Appel de nos functions
+        lenseList()
+        cameraCard()
+    })
+    .catch((error) => {
+        console.log(error);
+    })
 
+//Fonction blur menu
+// if(localStorage.orinocoCamera){
+//     const blurRemove = document.querySelector('.basket')
+// }
 
 //Fonction pour le tableau lenses
 const lenseList = () => {
@@ -89,16 +105,3 @@ const addToBasket = () => {
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     alert(`${quantity} appareil ${camera.name} lentille  ${inputGroupSelect01.value} ajouté à votre panier !`)
 }
-
-//Appel de notre API
-fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de notre produit
-    .then(async result_ => {  //Récupère le tableau json 
-        const result = await result_.json() //Donne un nom au tableau json récupéré
-        camera = result //Result deviens camera
-        //Appel de nos functions
-        lenseList()
-        cameraCard()
-    })
-    .catch((error) => {
-        console.log(error);
-    })
