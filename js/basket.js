@@ -105,6 +105,7 @@ if (!storage) { //On vérifie si storage existe
 //Fonction pour stocker notre commande dans le localStorage
 const sendCommand = () => {
      let order = window.localStorage.getItem("sendCommand") //Créer notre stockage de panier
+     const productsCalcul = document.querySelector('#sub-total')
      if (!order) {
           order = {
                products: [],
@@ -126,7 +127,7 @@ const sendCommand = () => {
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
      localStorage.removeItem("orderResult") //On nettoie notre localStorage pour passer une nouvelle commande
      localStorage.removeItem("order")
-     alert('Commande envoyé')
+     alert(`Votre commande d'un total de ${productsCalcul.textContent} € est envoyé. Vous allez être redirigé pour finaliser votre commande.`)
 }
 
 

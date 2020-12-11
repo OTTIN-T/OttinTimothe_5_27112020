@@ -1,7 +1,13 @@
+header {
+  position: fixed;
+  z-index: 99;
+}
+
 nav {
   height: 110px;
   border-bottom: $border $colour-border;
   font-family: $font-texte;
+  background-color: white;
 }
 
 .active {

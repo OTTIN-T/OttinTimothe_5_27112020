@@ -1,18 +1,13 @@
-
 // Importation du fichier reset
-// @import "./base/reset";
 @import "./base/typography";
 
 @import "./utils/variables";
-@import "./utils/functions";
 @import "./utils/keyframes";
-
-@import "./components/buttons";
 
 @import "./layouts/header";
 @import "./layouts/footer";
 @import "./layouts/index";
-@import "./layouts/product"; 
+@import "./layouts/product";
 @import "./layouts/basket";
 @import "./layouts/order";
 @import "./layouts/media-queries";

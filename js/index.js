@@ -6,18 +6,18 @@ let $cameraList = document.querySelector('#camera-list');
 
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras")
-.then(async result_ => { //On rend asynchrone notre fonction
-    const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse 
-    result.forEach(result => {
-        camera = result //Result deviens camera
-        //Appel de nos functions
-        lenseList()
-        cameraCard()
+    .then(async result_ => { //On rend asynchrone notre fonction
+        const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse 
+        result.forEach(result => {
+            camera = result //Result deviens camera
+            //Appel de nos functions
+            lenseList()
+            cameraCard()
+        })
     })
-})
-.catch(error => {
-    console.log(error);
-})
+    .catch(error => {
+        console.log(error);
+    })
 
 //Fonction pour le tableau lenses
 const lenseList = () => {

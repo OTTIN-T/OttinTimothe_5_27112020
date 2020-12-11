@@ -26,12 +26,21 @@
     animation: slide-in-top 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
   }
 
+  //Responsive title index
+  .section-title {
+    padding-top: 12rem;
+  }
+
   //Responsive page products
   #camera-item {
     width: 90%;
   }
   #camera-lense {
     font-size: 14px;
+  }
+
+  .fa-arrow-left {
+    margin-left: 2rem;
   }
 }
 
@@ -51,6 +60,11 @@
 }
 
 @media (max-width: 575px) {
+  //Responsive index
+  #camera-list {
+    padding: 0 !important;
+  }
+
   //Responsive page products
   #camera-lense {
     border: $border $colour-border !important;
@@ -76,9 +90,18 @@
   .camera-quantity-selector {
     display: initial;
   }
+
+  .fa-arrow-left {
+    margin-left: 1.5rem;
+  }
 }
 
 @media (max-width: 425px) {
+  //Responsive index
+  .portfolio {
+    padding: 0 !important;
+  }
+
   //Responsive page products
   .background-image-product {
     height: 250px;
@@ -101,5 +124,9 @@
   //Responsive page products
   #inputGroupSelect01 {
     padding-left: 3rem;
+  }
+
+  .fa-arrow-left {
+    margin-left: 0.5rem;
   }
 }

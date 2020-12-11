@@ -40,7 +40,7 @@ const commandForm = () => {
          <input type="text" class="form-control" id="inputComplement" placeholder="Appartement, étages...">
      </div>
      <div class="row">
-         <div class="form-group col-md-6">
+         <div class="form-group col-md-5">
              <label for="city">Ville</label>
              <input required type="text" class="form-control" id="city">
          </div>
@@ -48,7 +48,7 @@ const commandForm = () => {
              <label for="inputState">Région</label>
              <input required type="text" class="form-control" id="inputState">
          </div>
-         <div class="form-group col-md-2">
+         <div class="form-group col-md-3">
                  <label for="inputZip">Code postal</label>
                  <input required type="text" class="form-control" id="inputZip">
          </div>
@@ -72,7 +72,7 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
      const $city = document.querySelector('#city');
      const $email = document.querySelector('#email');
      //Condition pour vérifier la validité des champs du form
-     if($lastName.value.trim().length < 1 || $firstName.value.trim().length < 1 || $adress.value.trim().length < 1 || $city.value.trim().length < 1){ //trim() vérifie si les champs ne sont pas des espaces vides
+     if ($lastName.value.trim().length < 1 || $firstName.value.trim().length < 1 || $adress.value.trim().length < 1 || $city.value.trim().length < 1) { //trim() vérifie si les champs ne sont pas des espaces vides
           alert('Formulaire non valide ! Merci de renseigner correctement le formulaire (caractère incorrect dans l\'un des champs)')
           return;
      }
@@ -107,12 +107,11 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
                const result = await result_.json() //On attend le résultat de resul_.json() pour exécuter le reste
                window.localStorage.setItem("orderResult", JSON.stringify(result.orderId)) //On stocke orderId dans le localStorage pour l'utiliser après
                window.localStorage.setItem("order", JSON.stringify(order)) //On stock notre order dans localStorage pour l'utiliser après
-               console.log("result", result.contact) //La requête passe bien 
           })
           .catch(error => {
                console.log(error);
           })
-     alert('Commande prise en compte. Merci de votre achat !')
+     alert(`Commande prise en compte. Merci de votre achat !`)
 })
 
 //Fonction quand la commande est passée

@@ -12,18 +12,18 @@ const id = params.get('id'); //Obtiens l'id du produit
 
 //Fonction pour le tableau lenses
 const lenseList = () => {
-    for( let i = 0; i<camera.lenses.length; i++){
+    for (let i = 0; i < camera.lenses.length; i++) {
         const option = document.createElement("option") //Créé notre liste option
         option.setAttribute("value", camera.lenses[i]) //Incrémente nos lenses à notre liste option               
         option.innerHTML = camera.lenses[i]
         lenses.appendChild(option)
-    } 
+    }
 }
 
 //Notre template camera card
-const cameraCard = () => {   
-    $cameraProduct.innerHTML += 
-    `<div id="camera-item" class="card col-10 mx-auto mt-5 mb-5 shadow">
+const cameraCard = () => {
+    $cameraProduct.innerHTML +=
+        `<div id="camera-item" class="card col-10 mx-auto mt-5 mb-5 shadow">
         <div class="background-image-product card-img-top mx-auto" style="background-image: url(${camera.imageUrl})"></div>
         <div class="card-body">
             <h5 class="card-title">${camera.name}</h5>
@@ -48,7 +48,7 @@ const cameraCard = () => {
                         <option value="9">9</option>
                     </select>
                 </label>
-                <p id="camera-price" class="card-text col-sm-4 col-12 mx-auto mt-3">${camera.price} €</p>
+                <p id="camera-price" class="card-text col-sm-4 col-12 mx-auto mt-3">${camera.price} €/unité</p>
             </div>
             <div class="col-12 mt-3">
                 <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-products btn col-sm-6 col-12 mx-auto">Ajouter au panier</button>
@@ -58,24 +58,24 @@ const cameraCard = () => {
 }
 
 //Fonction pour le prix
-const addToPrice = () => {
-    const quantity = document.querySelector('#quantity')/*.value*/ //Récupère la valeur de la quantité
-    const $cameraPrice = document.querySelector('#camera-price')
-    console.log("$cameraPrice", $cameraPrice)
-    camera.price = (camera.price * quantity)//Notre prix est calculé en fonction de notre quanttité
-    console.log("camera.price", camera.price)  
-    $cameraPrice.innerHTML = camera.price
-}
+// const addToPrice = () => {
+//     const quantity = document.querySelector('#quantity')/*.value*/ //Récupère la valeur de la quantité
+//     const $cameraPrice = document.querySelector('#camera-price')
+//     console.log("$cameraPrice", $cameraPrice)
+//     camera.price = (camera.price * quantity)//Notre prix est calculé en fonction de notre quanttité
+//     console.log("camera.price", camera.price)  
+//     $cameraPrice.innerHTML = camera.price
+// }
 
 //Fonction pour le localStorage
 const addToBasket = () => {
     const quantity = document.querySelector('#quantity').value //Récupère la valeur de la quantité
     let storage = window.localStorage.getItem("orinocoCamera") //Créer notre stockage de panier
-    if(!storage){
+    if (!storage) {
         storage = {
             products: [],
         }
-    } else{
+    } else {
         storage = JSON.parse(storage) //On extrait notre json 
     }
     storage.products.push({
@@ -83,22 +83,22 @@ const addToBasket = () => {
         _id: camera._id,
         lenses: inputGroupSelect01.value,
         quantity: quantity,
-        price : camera.price * quantity,
+        price: camera.price * quantity,
         imageUrl: camera.imageUrl,
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
-    alert('L\'article a bien été ajouté à votre panier')
+    alert(`${quantity} appareil ${camera.name} lentille  ${inputGroupSelect01.value} ajouté à votre panier !`)
 }
 
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de notre produit
-.then(async result_ => {  //Récupère le tableau json 
-    const result = await result_.json() //Donne un nom au tableau json récupéré
-    camera = result //Result deviens camera
-    //Appel de nos functions
-    lenseList() 
-    cameraCard()
-})
-.catch((error) => {
-console.log(error);
-})
+    .then(async result_ => {  //Récupère le tableau json 
+        const result = await result_.json() //Donne un nom au tableau json récupéré
+        camera = result //Result deviens camera
+        //Appel de nos functions
+        lenseList()
+        cameraCard()
+    })
+    .catch((error) => {
+        console.log(error);
+    })
