@@ -15,16 +15,11 @@ fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de no
         camera = result //Result deviens camera
         //Appel de nos functions
         lenseList()
-        cameraCard()
+        cameraCard()   
     })
     .catch((error) => {
         console.log(error);
     })
-
-//Fonction blur menu
-// if(localStorage.orinocoCamera){
-//     const blurRemove = document.querySelector('.basket')
-// }
 
 //Fonction pour le tableau lenses
 const lenseList = () => {
@@ -73,15 +68,12 @@ const cameraCard = () => {
     </div>`
 }
 
-//Fonction pour le prix
-// const addToPrice = () => {
-//     const quantity = document.querySelector('#quantity')/*.value*/ //Récupère la valeur de la quantité
-//     const $cameraPrice = document.querySelector('#camera-price')
-//     console.log("$cameraPrice", $cameraPrice)
-//     camera.price = (camera.price * quantity)//Notre prix est calculé en fonction de notre quanttité
-//     console.log("camera.price", camera.price)  
-//     $cameraPrice.innerHTML = camera.price
-// }
+//Fonction pour supprimer le blur
+const blurRemove = () =>{
+    const $blurRemove = document.querySelector('.basket')
+    $blurRemove.classList.remove("inactive")
+    $blurRemove.classList.add("active")
+}
 
 //Fonction pour le localStorage
 const addToBasket = () => {
@@ -103,5 +95,30 @@ const addToBasket = () => {
         imageUrl: camera.imageUrl,
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
+    blurRemove()
     alert(`${quantity} appareil ${camera.name} lentille  ${inputGroupSelect01.value} ajouté à votre panier !`)
 }
+
+
+// Test Fonction pour le prix
+// const addToPrice = () => {
+//     let $cameraPrice = document.querySelector('#camera-price')
+//     let quantity = document.querySelector('#quantity')
+//     if(quantity == null || $cameraPrice == null){
+//         quantity = 1//Récupère la valeur de la quantité
+//         $cameraPrice = camera.price
+//         $cameraPrice.innerHTML =  camera.price
+//         console.log("camera.priceNull", camera.price) 
+//         if ($cameraPrice != null){  
+//             quantity = quantity.value      
+//             $cameraPrice = camera.price
+//             console.log("$cameraPrice1", $cameraPrice)
+//             $cameraPrice.innerHTML = camera.price * quantity//Notre prix est calculé en fonction de notre quanttité
+            
+//         }
+//     }
+//     // $cameraPrice.innerHTML = camera.price * quantity
+//     // $cameraPrice.innerHTML = camera.price
+//     console.log("$cameraPrice2", $cameraPrice)
+// }
+
