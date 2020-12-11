@@ -57,7 +57,18 @@ const tableFooter = () => {
           <td class="text-center">
                <p class="mt-3">Sous total : <span id="sub-total"></span>€</p>
           </td>
-     </tr>`)
+     </tr>
+     <tr class="container">
+          <td>
+          </td>
+          <td class="text-center">
+               <a href="../index.html">
+                    <button type="button" onclick="clearCommand()" id="clear-command" class="btn col-md-6 col-12 mx-auto d-block d-sm-none">Annuler la commande</button>
+               </a>
+          </td>
+          <td>
+          </td>
+     </tr`)
 }
 
 //Fonction pour implémenter chaque élement dans le tableau
