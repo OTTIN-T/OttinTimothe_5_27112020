@@ -34,7 +34,7 @@ const lenseList = () => {
 //Notre template camera card
 const cameraCard = () => {
     $cameraProduct.innerHTML +=
-        `<div id="camera-item" class="card col-10 mx-auto mt-5 mb-5 shadow">
+        (`<div id="camera-item" class="card col-10 mx-auto mt-5 mb-5 shadow">
         <div class="background-image-product card-img-top mx-auto" style="background-image: url(${camera.imageUrl})"></div>
         <div class="card-body">
             <h5 class="card-title">${camera.name}</h5>
@@ -47,7 +47,7 @@ const cameraCard = () => {
                     ${lenses.innerHTML}
                 </select>
                 <label class="camera-quantity-selector col-sm-4 col-12 text-center " for="camera-quantity">Quantité: 
-                    <select id="quantity" class="text-center mx-auto" name="camera-quantity">
+                    <select id="quantity" onclick="addToPrice()" class="text-center mx-auto" name="camera-quantity">
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>
@@ -59,13 +59,21 @@ const cameraCard = () => {
                         <option value="9">9</option>
                     </select>
                 </label>
-                <p id="camera-price" class="card-text col-sm-4 col-12 mx-auto mt-3">${camera.price} €/unité</p>
+                <p id="camera-price" class="card-text col-sm-4 col-12 mx-auto mt-3"></p>
             </div>
             <div class="col-12 mt-3">
                 <button type="button"  onclick="addToBasket()" id="camera-buy" class="add-to-products btn col-sm-6 col-12 mx-auto">Ajouter au panier</button>
             </div>               
         </div>   
-    </div>`
+    </div>`)
+    addToPrice()
+}
+
+//Fonction pour changer le prix en fonction de la quantité
+const addToPrice = () => {
+    let $cameraPrice = document.querySelector('#camera-price')
+    let quantity = document.querySelector('#quantity').value
+    $cameraPrice.innerHTML = (`${camera.price * quantity} €`)
 }
 
 //Fonction pour supprimer le blur
@@ -92,33 +100,10 @@ const addToBasket = () => {
         lenses: inputGroupSelect01.value,
         quantity: quantity,
         price: camera.price * quantity,
+        priceByItems: camera.price,
         imageUrl: camera.imageUrl,
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     blurRemove()
     alert(`${quantity} appareil ${camera.name} lentille  ${inputGroupSelect01.value} ajouté à votre panier !`)
 }
-
-
-// Test Fonction pour le prix
-// const addToPrice = () => {
-//     let $cameraPrice = document.querySelector('#camera-price')
-//     let quantity = document.querySelector('#quantity')
-//     if(quantity == null || $cameraPrice == null){
-//         quantity = 1//Récupère la valeur de la quantité
-//         $cameraPrice = camera.price
-//         $cameraPrice.innerHTML =  camera.price
-//         console.log("camera.priceNull", camera.price) 
-//         if ($cameraPrice != null){  
-//             quantity = quantity.value      
-//             $cameraPrice = camera.price
-//             console.log("$cameraPrice1", $cameraPrice)
-//             $cameraPrice.innerHTML = camera.price * quantity//Notre prix est calculé en fonction de notre quanttité
-            
-//         }
-//     }
-//     // $cameraPrice.innerHTML = camera.price * quantity
-//     // $cameraPrice.innerHTML = camera.price
-//     console.log("$cameraPrice2", $cameraPrice)
-// }
-

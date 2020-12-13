@@ -2,6 +2,7 @@
 //On initialise nos variables
 let products;
 let productsTableInfo;
+let totalPrice = 0;
 let productsTotalSub = []; //On initialise un tableau vide de chaque élément
 let productsTotalQuant = [];
 let productsTotalName = [];
@@ -15,6 +16,7 @@ let storage = localStorage.getItem("orinocoCamera");
 const tableRow = () => {
      for (let i = 0; i < products.length; i++) {
           productsTableInfo = products[i] //Récupère pour un élément du panier ses infos sous forme d'objet
+
      }
 }
 
@@ -23,10 +25,50 @@ const productsTable = () => {
      $productsTableBody.innerHTML += (`
      <tr id="parent-price">
           <td class="text-center">${productsTableInfo.name}  ${productsTableInfo.lenses}</td>
-          <td class="text-center">${productsTableInfo.quantity}</td> 
+          <td class="text-center">
+               <button type="button" onclick="buttonBasketReduce()" class="btn mx-auto quantity-reduce">-</button>
+                    <span class="quantity-product">${productsTableInfo.quantity}</span>
+               <button type="button" onclick="buttonBasketPlus()" class="btn mx-auto quantity-plus">+</button>
+          </td> 
           <td id="price-table" class="text-center">${productsTableInfo.price + ' €'}</td>
      </tr>`)
+     // buttonBasket()
 }
+
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+// Ne marche que pour la première ligne
+//Fonction  pour les boutons + et -
+const buttonBasketReduce = () => {
+     const $quantityProduct = document.querySelector('.quantity-product')
+     const $priceTable = document.querySelector('#price-table')
+     const $productsCalcul = document.querySelector('#sub-total')
+     const $quantityReduce = document.querySelector('.quantity-reduce')
+     const $quantityPlus = document.querySelector('.quantity-plus')
+
+          $quantityProduct.innerHTML = --productsTableInfo.quantity //la quantité décrémente à chaque click
+          const productsTotalByItem = productsTableInfo.priceByItems * productsTableInfo.quantity //On recalcul le prix en fonction de la quantité
+          $priceTable.innerHTML = productsTotalByItem
+          totalPrice -= productsTableInfo.price //On modifie le total du panier 
+          $productsCalcul.innerHTML = totalPrice
+          alert('Vous avez retiré un produit à votre panier !')
+
+}
+const buttonBasketPlus = () => {
+     const $quantityProduct = document.querySelector('.quantity-product')
+     const $priceTable = document.querySelector('#price-table')
+     const $productsCalcul = document.querySelector('#sub-total')
+     const $quantityReduce = document.querySelector('.quantity-reduce')
+     const $quantityPlus = document.querySelector('.quantity-plus')
+
+          $quantityProduct.innerHTML = ++productsTableInfo.quantity //La quantité s'incrémente à chaque click
+          const productsTotalByItem = productsTableInfo.priceByItems * productsTableInfo.quantity //On recalcul le prix en fonction de la quantité
+          $priceTable.innerHTML = productsTotalByItem
+          totalPrice += productsTableInfo.price //On modifie le total du panier
+          $productsCalcul.innerHTML = totalPrice
+          alert('Vous avez ajouté un produit à votre panier !')
+
+}
+///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Fonction pour notre panier vide
 const tableEmpty = () => {
@@ -73,8 +115,7 @@ const tableFooter = () => {
 
 //Fonction pour implémenter chaque élement dans le tableau
 const implementBasket = () => {
-     const productsCalcul = document.querySelector('#sub-total')
-     let totalPrice = 0;
+     const $productsCalcul = document.querySelector('#sub-total')
      products.forEach((result) => {
           productsTableInfo = result;
           totalPrice += productsTableInfo.price; //+= S'ajoute à lui même avec une autre valeur
@@ -83,7 +124,7 @@ const implementBasket = () => {
           productsTotalQuant.push(productsTableInfo.quantity)
           productsTotalName.push(productsTableInfo.name)
      });
-     productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
+     $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
 
 }
 
@@ -118,7 +159,7 @@ if (!storage) { //On vérifie si storage existe
 //Fonction pour stocker notre commande dans le localStorage
 const sendCommand = () => {
      let order = window.localStorage.getItem("sendCommand") //Créer notre stockage de panier
-     const productsCalcul = document.querySelector('#sub-total')
+     const $productsCalcul = document.querySelector('#sub-total')
      if (!order) {
           order = {
                products: [],
@@ -140,7 +181,7 @@ const sendCommand = () => {
      window.localStorage.setItem("sendCommand", JSON.stringify(order))
      localStorage.removeItem("orderResult") //On nettoie notre localStorage pour passer une nouvelle commande
      localStorage.removeItem("order")
-     alert(`Votre commande d'un total de ${productsCalcul.textContent} € est envoyée. Vous allez être redirigé pour finaliser votre commande.`)
+     alert(`Votre commande d'un total de ${$productsCalcul.textContent} € est envoyée. Vous allez être redirigé pour finaliser votre commande.`)
 }
 
 //Fonction pour annuler la commande
