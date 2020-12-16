@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "sass": "sass --watch ./sass/main.scss:./sass/css/style.css --style compressed",
-    "prefix": "postcss ./sass/css/style.css --use autoprefixer -d ./sass/css/prefixed/"
+    "prefix": "postcss ./sass/css/style.css --use autoprefixer -d ./sass/css/prefixed/",
+    "dev": "webpack"
   },
   "repository": {
     "type": "git",
@@ -17,5 +18,26 @@
   "bugs": {
     "url": "https://github.com/OTTIN-T/OttinTimothe_5_27112020/issues"
   },
-  "homepage": "https://github.com/OTTIN-T/OttinTimothe_5_27112020#readme"
+  "homepage": "https://github.com/OTTIN-T/OttinTimothe_5_27112020#readme",
+  "devDependencies": {
+    "@babel/core": "^7.12.10",
+    "@babel/preset-env": "^7.12.11",
+    "autoprefixer": "^10.1.0",
+    "babel-loader": "^8.2.2",
+    "babel-polyfill": "^6.26.0",
+    "css-loader": "^5.0.1",
+    "extract-text-webpack-plugin": "^3.0.2",
+    "mini-css-extract-plugin": "^1.3.3",
+    "node-sass": "^5.0.0",
+    "optimize-css-assets-webpack-plugin": "^5.0.4",
+    "postcss": "^8.2.1",
+    "postcss-loader": "^4.1.0",
+    "postcss-preset-env": "^6.7.0",
+    "sass": "^1.30.0",
+    "sass-loader": "^10.1.0",
+    "style-loader": "^2.0.0",
+    "terser-webpack-plugin": "^5.0.3",
+    "webpack": "^5.10.3",
+    "webpack-cli": "^4.2.0"
+  }
 }

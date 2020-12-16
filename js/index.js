@@ -10,25 +10,14 @@ fetch("http://localhost:3000/api/cameras")
         const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse 
         result.forEach(result => {
             camera = result //Result deviens camera
+            console.log("camera", camera)
             //Appel de nos functions
-            lenseList()
             cameraCard()
         })
     })
     .catch(error => {
         console.log(error);
     })
-
-//Fonction pour le tableau lenses
-const lenseList = () => {
-    const lenses = document.createElement("select")
-    for (let i = 0; i < camera.lenses.length; i++) {
-        const option = document.createElement("option")//Créé notre liste option
-        option.setAttribute("value", camera.lenses[i])//Incrémente nos lenses à notre liste option   
-        option.innerHTML = camera.lenses[i]
-        lenses.appendChild(option)
-    }
-}
 
 //Notre template camera card
 const cameraCard = () => {
