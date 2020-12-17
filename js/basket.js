@@ -8,7 +8,10 @@ let productsTotalQuant = [];
 let productsTotalName = [];
 let productsTotalId = [];
 const $productsTableBody = document.querySelector('#products-tablebody');
+let $quantityReduce;
 
+let myTd;
+let mySpan;
 //On récupère notre storage en json
 let storage = localStorage.getItem("orinocoCamera");
 
@@ -16,70 +19,86 @@ let storage = localStorage.getItem("orinocoCamera");
 const tableRow = () => {
      for (let i = 0; i < products.length; i++) {
           productsTableInfo = products[i] //Récupère pour un élément du panier ses infos sous forme d'objet
+          console.log("productsTableInfo6", productsTableInfo)
      }
 }
 
 //Fonction pour créer une ligne du tableau
 const productsTable = () => {
+     // let tr;
      //Crée la ligne tr de chaque élement
      let myTr = document.createElement('tr')
      //Donne un id
      myTr.id = 'parent-price'
-     console.log("myTr", myTr)
      //Inclus myTr dans mon tableau ($productsTableBody)
      $productsTableBody.appendChild(myTr)
 
      //Crée la ligne td nom 
-     let myTd = document.createElement('td')
+     myTd = document.createElement('td')
      //Donne une classe
      myTd.className = 'text-center'
      //Rajoute le contenu
      myTd.textContent = (`${productsTableInfo.name}  ${productsTableInfo.lenses}`)
-     console.log("myTd", myTd)
      //Inclus myTd dans myTr
      myTr.appendChild(myTd)
 
      //Crée la ligne td quantité 
      myTd = document.createElement('td')
      myTd.className = 'text-center'
-     console.log("myTd2", myTd)
      myTr.appendChild(myTd)
 
-     
+
      //Créé le bouton -
      let myButton = document.createElement('button')
      myButton.className = 'btn mx-auto quantity-reduce'
      //Donne un type
      myButton.type = 'button'
      //Donne un attribut
-     myButton.setAttribute('onclick', 'buttonBasketReduce()')
+     // myButton.setAttribute('onclick', 'buttonBasketReduce()')
      myButton.textContent = '-'
-     console.log("myButton", myButton)
      myTd.appendChild(myButton)
 
      //Créé la span quantité
-     let mySpan = document.createElement('span')
+     mySpan = document.createElement('span')
+     mySpan.id = (`${productsTableInfo._id}`)
      mySpan.className = 'quantity-product'
      mySpan.textContent = (`${productsTableInfo.quantity}`)
      myTd.appendChild(mySpan)
-
+     // tr = myTd.appendChild(mySpan).textContent //Donnne comme valeur la quantité
 
      //Créé le bouton +
      myButton = document.createElement('button')
      myButton.className = 'btn mx-auto quantity-plus'
      myButton.type = 'button'
-     myButton.setAttribute('onclick', 'buttonBasketPlus()')
+     // myButton.setAttribute('onclick', 'buttonBasketPlus()')
      myButton.textContent = '+'
-     console.log("myButton", myButton)
      myTd.appendChild(myButton)
 
      //Crée la ligne td du prix
      myTd = document.createElement('td')
      myTd.id = 'price-table'
      myTd.className = 'text-center'
-     myTd.textContent = (`${productsTableInfo.price + ' €'}`)
-     console.log("myTd", myTd)
+     myTd.textContent = (`${productsTableInfo.priceByItems * productsTableInfo.quantity + ' €'}`)
      myTr.appendChild(myTd)
+     // tr =  myTr.appendChild(myTd).textContent //Donnne comme valeur le prix
+
+
+     // $quantityReduce.forEach(result => result.addEventListener('click', (event)=>{
+
+     console.log("productsTableInfo.price=tr", productsTableInfo.price)
+     console.log("productsTableInfo", productsTableInfo._id)
+     // $quantityReduce.addEventListener('click', function()
+
+
+
+     /*
+Déjà un petit conseil comme ça à première vue : 
+ne pas ajouter des eventListeners 'click' ou autre en passant par la méthode monElement.setAttribute('onclick', taFonction()).
+la bonne syntaxe serait plutôt 
+     monElement.addEventListener('click', function() {
+          tafonctionQuiSExecute();
+     })
+*/
 
      /* <tbody id="products-tablebody">
           <tr id="parent-price">
@@ -108,58 +127,70 @@ const productsTable = () => {
      // buttonBasket()
 }
 
+
+/*
+Déjà un petit conseil comme ça à première vue : 
+ne pas ajouter des eventListeners 'click' ou autre en passant par la méthode monElement.setAttribute('onclick', taFonction()).
+la bonne syntaxe serait plutôt 
+     monElement.addEventListener('click', function() {
+          tafonctionQuiSExecute();
+     })
+*/
+
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Ne marche que pour la première ligne
 //Fonction  pour les boutons + et -
 // const buttonBasket = () => {
-//      const $quantityReduce = document.querySelector('.quantity-reduce')
-//      $quantityReduce.addEventListener('click', (event) => {
-//           let $quantityProduct = document.querySelector('.quantity-product')
-//           $quantityProduct.innerHTML = --productsTableInfo.quantity //la quantité décrémente à chaque click
-//           const $priceTable = document.querySelector('#price-table')
-//           const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
-//           $priceTable.innerHTML = (`${priceTableTotal} €`) //On recalcul le prix en fonction de la quantité    
-//           event.preventDefault()
-//           event.stopPropagation()
-//      })
-//      const $quantityPlus = document.querySelector('.quantity-plus')
-//      $quantityPlus.addEventListener('click', (event) => {
-//           let $quantityProduct = document.querySelector('.quantity-product')
-//           $quantityProduct.innerHTML = ++productsTableInfo.quantity //la quantité décrémente à chaque click
-//           const $priceTable = document.querySelector('#price-table')
-//           const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
-//           $priceTable.innerHTML = (`${priceTableTotal} €`) //On recalcul le prix en fonction de la quantité    
-//           event.preventDefault()
-//           event.stopPropagation()
-//      })
+// const $quantityReduce = document.querySelector('.quantity-reduce')
+// $quantityReduce.addEventListener('click', (event) => {
+//      let $quantityProduct = document.querySelector('.quantity-product')
+//      $quantityProduct.innerHTML = --productsTableInfo.quantity //la quantité décrémente à chaque click
+//      const $priceTable = document.querySelector('#price-table')
+//      const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
+//      $priceTable.innerHTML = (`${priceTableTotal} €`) //On recalcul le prix en fonction de la quantité    
+//      event.preventDefault()
+//      event.stopPropagation()
+// })
+// const $quantityPlus = document.querySelector('.quantity-plus')
+// $quantityPlus.addEventListener('click', (event) => {
+//      let $quantityProduct = document.querySelector('.quantity-product')
+//      $quantityProduct.innerHTML = ++productsTableInfo.quantity //la quantité décrémente à chaque click
+//      const $priceTable = document.querySelector('#price-table')
+//      const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
+//      $priceTable.innerHTML = (`${priceTableTotal} €`) //On recalcul le prix en fonction de la quantité    
+//      event.preventDefault()
+//      event.stopPropagation()
+// })
 // }
 
-const buttonBasketReduce = () => {
-     let $quantityProduct = document.querySelector('.quantity-product')
-     $quantityProduct.innerHTML = --productsTableInfo.quantity //la quantité décrémente à chaque click
-     const $priceTable = document.querySelector('#price-table')
-     const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
-     $priceTable.innerHTML = priceTableTotal //On recalcul le prix en fonction de la quantité     
-     // const $quantityReduce = document.querySelector('.quantity-reduce')
-     // event.preventDefault()
-     // event.stopPropagation()
-     // totalPrice = (productsTableInfo.price - priceTableTotal)//On modifie le total du panier 
-     // const $productsCalcul = document.querySelector('#sub-total')
-     // $productsCalcul.innerHTML = totalPrice
-}
-const buttonBasketPlus = () => {
-     let $quantityProduct = document.querySelector('.quantity-product')
-     $quantityProduct.innerHTML = ++productsTableInfo.quantity //La quantité s'incrémente à chaque click
-     const $priceTable = document.querySelector('#price-table')
-     const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
-     $priceTable.innerHTML = priceTableTotal //On recalcul le prix en fonction de la quantité     
-     // const $quantityPlus = document.querySelector('.quantity-plus')
-     // event.preventDefault()
-     // event.stopPropagation()
-     // totalPrice = (productsTableInfo.price + priceTableTotal)//On modifie le total du panier
-     // const $productsCalcul = document.querySelector('#sub-total')
-     // $productsCalcul.innerHTML = totalPrice
-}
+
+
+// const buttonBasketReduce = () => {
+//      let $quantityProduct = document.querySelector('.quantity-product')
+//      $quantityProduct.innerHTML = --productsTableInfo.quantity //la quantité décrémente à chaque click
+//      const $priceTable = document.querySelector('#price-table')
+//      const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
+//      $priceTable.innerHTML = priceTableTotal //On recalcul le prix en fonction de la quantité     
+// const $quantityReduce = document.querySelector('.quantity-reduce')
+// event.preventDefault()
+// event.stopPropagation()
+// totalPrice = (productsTableInfo.price - priceTableTotal)//On modifie le total du panier 
+// const $productsCalcul = document.querySelector('#sub-total')
+// $productsCalcul.innerHTML = totalPrice
+// }
+// const buttonBasketPlus = () => {
+//      let $quantityProduct = document.querySelector('.quantity-product')
+//      $quantityProduct.innerHTML = ++productsTableInfo.quantity //La quantité s'incrémente à chaque click
+//      const $priceTable = document.querySelector('#price-table')
+//      const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
+//      $priceTable.innerHTML = priceTableTotal //On recalcul le prix en fonction de la quantité     
+// const $quantityPlus = document.querySelector('.quantity-plus')
+// event.preventDefault()
+// event.stopPropagation()
+// totalPrice = (productsTableInfo.price + priceTableTotal)//On modifie le total du panier
+// const $productsCalcul = document.querySelector('#sub-total')
+// $productsCalcul.innerHTML = totalPrice
+// }
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 
 //Fonction pour créer notre bouton d'achat
@@ -242,11 +273,119 @@ if (!storage) { //On vérifie si storage existe
           products.forEach((result) => { //Boucle pour incrémenter le tableau
                productsTableInfo = result
                productsTable()
+
           });
      } else if (products.length >= 1 && localStorage.order) { //Si on a déjà une commande affiche tableEmpty
           tableEmpty()
      }
 }
+
+$quantityReduce = document.querySelector('.quantity-reduce')
+console.log("productsTableInfoId3", productsTableInfo)
+console.log("productsTableInfo.priceByItems", productsTableInfo.priceByItems)
+$quantityReduce.addEventListener('click', function (event) {
+     // result = -1
+     console.log("result", event)
+
+     const $quantityProduct = document.querySelector('.quantity-product')
+     productsTableInfo.quantity = $quantityProduct.textContent //Prends la valeur textContent
+     let quantity = --productsTableInfo.quantity //Redeviens un nombre
+     $quantityProduct.innerHTML = quantity //la quantité décrémente à chaque click
+
+     const $id = document.getElementById(`${productsTableInfo._id}`)
+     console.log("id", $id)
+     console.log("mySpan.id", mySpan.id)
+     // productsTableInfo.price
+     console.log("productsTableInfo.price", productsTableInfo.price)
+     // myTd.textContent = myTd.textContent
+     const $priceTable = document.querySelector('#price-table')
+     productsTableInfo.price = parseFloat($priceTable.textContent)
+     console.log("productsTableInfo.price2", productsTableInfo.price)
+     $priceTable.innerHTML = quantity * /*le prix de l'id de la quantité*/
+     console.log("productsTableInfo.price3", productsTableInfo.price)
+     // productsTableInfo.price = $priceTable.value //Prends la valeur textContent
+     // console.log("prix au click", productsTableInfo.price)
+     // console.log("type du prix au click", typeof productsTableInfo.price)
+     // let price = -productsTableInfo.price
+     // console.log("price après opération Type",typeof price)
+     // console.log("price après opération", price)
+
+     // $priceTable.innerHTML = --productsTableInfo.price
+     // console.log("price après opération inner", price)
+
+     // console.log("$priceTable.value.1", $priceTable.value)
+     // console.log("$priceTable.value.Type1.", typeof $priceTable.value)
+     // console.log("productsTableInfo.price.1", productsTableInfo.price)
+     // console.log("productsTableInfo.price.Type.1", typeof productsTableInfo.price)
+     // console.log("productsTableInfo.price.By.Items.1", productsTableInfo.priceByItems)
+     // console.log("productsTableInfo.price.By.Items.Type.1", typeof productsTableInfo.priceByItems)
+     // console.log("$price.Table.1", $priceTable)
+     // console.log("$priceTable.Type.1", typeof $priceTable)
+     // console.log("$priceTable.text.Content.1", $priceTable.textContent)
+     // console.log("$priceTable.textContent.Type.1", typeof $priceTable.textContent)
+     // productsTableInfo.priceByItems = $priceTable.textContent
+
+     // console.log("$priceTable.value.2", $priceTable.value)
+     // console.log("$priceTable.value.Type.2", typeof $priceTable.value)
+     // console.log("productsTableInfo.price.2", productsTableInfo.price)
+     // console.log("productsTableInfo.price.Type.2", typeof productsTableInfo.price)
+     // console.log("productsTableInfo.price.By.Items.2", productsTableInfo.priceByItems)
+     // console.log("productsTableInfo.price.By.Items.Type.2", typeof productsTableInfo.priceByItems)
+     // console.log("$priceTable.2", $priceTable)
+     // console.log("$priceTable.Type.2", typeof $priceTable)
+     // console.log("$priceTable.text.Content.2", $priceTable.textContent)
+     // console.log("$priceTable.textContent.Type.2", typeof $priceTable.textContent)
+
+     // productsTableInfo.priceByItems = $priceTable.textContent
+     // const $id = document.querySelector( `${productsTableInfo._id}`)
+     // console.log("$id", $id)
+
+
+
+     // productsTableInfo.price = $priceTable.textContent
+
+     // let price = productsTableInfo.price
+
+     // productsTableInfo.price = $priceTable.textContent
+
+     // let price = productsTableInfo.price
+     // console.log("price", productsTableInfo.price)
+     // $priceTable.innerHTML = productsTableInfo.priceByItems * quantity
+     // console.log("quantity1", quantity)
+     // console.log("quantityType1", typeof quantity)
+     // console.log("productsTableInfo.priceByItems.Id1", productsTableInfo.priceByItems._id)
+     // console.log("productsTableInfo.priceByItems.IdType1",typeof productsTableInfo.priceByItems._id)
+
+     // console.log("$priceTable", $priceTable)
+     // const priceTableTotal = productsTableInfo.priceByItems * productsTableInfo.quantity
+     // console.log("productsTableInfo.priceByItems2", productsTableInfo.priceByItems)
+     // $priceTable.innerHTML = (`${priceTableTotal} €`) //On recalcul le prix en fonction de la quantité  
+     event.stopPropagation()
+     event.preventDefault()  
+})
+
+const $quantityPlus = document.querySelector('.quantity-plus')
+$quantityPlus.addEventListener('click', function (event) {
+     console.log("productsTableInfoId4", productsTableInfo._id)
+     // event = -1
+     console.log("event", event)
+     let $quantityProduct = document.querySelector('.quantity-product')
+     productsTableInfo.quantity = $quantityProduct.textContent
+     let quantity = ++productsTableInfo.quantity
+     $quantityProduct.innerHTML = quantity //la quantité décrémente à chaque click  
+
+     console.log("productsTableInfo.price", productsTableInfo.price)
+     // myTd.textContent = myTd.textContent
+     const $priceTable = document.querySelector('#price-table')
+     productsTableInfo.priceByItems === parseFloat($priceTable.textContent)
+     console.log("productsTableInfo.priceByItems", productsTableInfo.priceByItems)
+     productsTableInfo.price = parseFloat($priceTable.textContent)
+     console.log("productsTableInfo.price2", productsTableInfo.price)
+     $priceTable.innerHTML = quantity
+     console.log("productsTableInfo.price3", productsTableInfo.price)
+     event.stopPropagation()
+     event.preventDefault()
+})
 
 //Fonction pour stocker notre commande dans le localStorage
 const sendCommand = () => {
