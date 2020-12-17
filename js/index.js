@@ -10,7 +10,6 @@ fetch("http://localhost:3000/api/cameras")
         const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse 
         result.forEach(result => {
             camera = result //Result deviens camera
-            console.log("camera", camera)
             //Appel de nos functions
             cameraCard()
         })
