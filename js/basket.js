@@ -3,6 +3,7 @@
 let products;
 let productsTableInfo;
 let totalPrice = 0;
+const $productsTableBody = document.querySelector('#products-tablebody');
 let productsTotalSub = []; //On initialise un tableau vide de chaque élément
 let productsTotalQuant = [];
 let productsTotalName = [];
@@ -14,21 +15,16 @@ let storage = localStorage.getItem("orinocoCamera");
 
 //On extrait chaque ligne du tableau 
 const tableRow = () => {
-     console.log("Element à mettre dans le tableau", products)
      for (let i = 0; i < products.length; i++) {
           productsTableInfo = products[i] //Récupère pour un élément du panier ses infos sous forme d'objet
-          console.log("Une ligne de tableau", productsTableInfo)
      }
 }
 
-const $productsTableBody = document.querySelector('#products-tablebody');
-console.log("$productsTableBody", $productsTableBody)
+
 //Fonction pour créer une ligne du tableau
 const productsTable = () => {
-     // let tr;
      //Crée la ligne tr de chaque élement
      let myTr = document.createElement('tr')
-     console.log("myTr", myTr)
      //Donne un id
      myTr.id = (`${productsTableInfo._id}`)
      //Inclus myTr dans mon tableau ($productsTableBody)
@@ -36,7 +32,6 @@ const productsTable = () => {
 
      //Crée la ligne td nom 
      let myTd = document.createElement('td')
-     console.log("myTdNom", myTd)
      //Donne une classe
      myTd.className = 'text-center'
      //Rajoute le contenu
@@ -46,123 +41,72 @@ const productsTable = () => {
 
      //Crée la ligne td quantité 
      myTd = document.createElement('td')
-     console.log("myTdQuantité", myTd)
      myTd.className = 'text-center'
      myTr.appendChild(myTd)
 
 
      // //Créé le bouton -
      let myButtonReduce = document.createElement('button')
-     console.log("myButtonReduce", myButtonReduce)
-     myButtonReduce.className = 'btn mx-auto quantity-reduce'
-     //Donne un type
+     myButtonReduce.className = 'btn mx-auto'
      myButtonReduce.type = 'button'
-     // //Donne un attribut
-     // // myButtonReduce.setAttribute('onclick', ' = document.querySelector('#')()')
      myButtonReduce.textContent = '-'
      myTd.appendChild(myButtonReduce)
 
      //Créé la span quantité
      let mySpan = document.createElement('span')
-     console.log("mySpanQuantité", mySpan)
-     mySpan.id = (`${productsTableInfo._id}`)
-     mySpan.className = 'quantity-product'
      mySpan.textContent = (`${productsTableInfo.quantity}`)
      myTd.appendChild(mySpan)
      // tr = myTd.appendChild(mySpan).textContent //Donnne comme valeur la quantité
 
      //Créé le bouton +
      let myButtonPlus = document.createElement('button')
-     console.log("myButtonPlus", myButtonPlus)
-     myButtonPlus.className = 'btn mx-auto quantity-plus'
+     myButtonPlus.className = 'btn mx-auto'
      myButtonPlus.type = 'button'
-     // myButtonPlus.setAttribute('onclick', 'buttonBasketPlus()')
      myButtonPlus.textContent = '+'
      myTd.appendChild(myButtonPlus)
 
      //Crée la ligne td du prix
      myTd = document.createElement('td')
-     console.log("myTdPrix", myTd)
-     myTd.id = 'price-table'
+     myTd.id = (`${productsTableInfo.priceByItems}`)//Stock le prix par items
      myTd.className = 'text-center'
+     myTd.textContent = (`${productsTableInfo.price} €`)
      myTr.appendChild(myTd)
-     // tr =  myTr.appendChild(myTd).textContent //Donnne comme valeur le prix
 
-     //Créé la span prix
-     let mySpanPrice = document.createElement('span')
-     console.log("mySpanPrix", mySpanPrice)
-     mySpanPrice.textContent = (`${productsTableInfo.price + ' €'}`)
-     myTd.appendChild(mySpanPrice)
-
+     //EventListener pour les boutons +/-
      myButtonReduce.addEventListener('click', function (event) {
-          console.log("productsTableInfo.quantity", productsTableInfo.quantity)
           productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click   
           let quantity = --productsTableInfo.quantity //Redeviens un nombre
-          mySpan.innerHTML = quantity //la quantité décrémente à chaque click
+          mySpan.textContent = quantity //la quantité décrémente à chaque click
+          let price = myTd.id * quantity
+          //Condition popur changer le prix en fonction de la quantité
+          if (quantity <= 0) {
+               myTd.textContent = '0' //Bloque le prix à 0
+          } else if (quantity >= 1) {
+               myTd.textContent = (`${price} €`)
+          }
 
-          console.log("productsTableInfo.priceByItems", productsTableInfo.priceByItems)
-          productsTableInfo.priceByItems = mySpanPrice.textContent
-          console.log("productsTableInfo.priceByItems2", productsTableInfo.priceByItems)
-          let price = --productsTableInfo.priceByItems
-          console.log("productsTableInfo.priceByItems3", productsTableInfo.priceByItems)
-          myTd.innerHTML = price
-          // console.log("productsTableInfo.price.textContent",  myTd.innerHTML)
-          // console.log("productsTableInfo.price1", productsTableInfo.price)
-          // console.log("productsTableInfo.price1.Type",typeof productsTableInfo.price)
-          // myTd.textContent = productsTableInfo.price
-          // console.log("productsTableInfo.price2", productsTableInfo.price)
-          // console.log("productsTableInfo.price2.Type",typeof productsTableInfo.price)
-          // let price = productsTableInfo.price * quantity
-          // console.log("productsTableInfo.price3", productsTableInfo.price)
-          // console.log("productsTableInfo.price3.Type",typeof productsTableInfo.price)
-
-          // myTd.innerHTML = price
+          const $productsCalcul = document.querySelector('#sub-total')
+          totalPrice -= price;
+          $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
 
           event.stopPropagation()
           event.preventDefault()
      })
-
      myButtonPlus.addEventListener('click', function (event) {
           productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click
           let quantity = ++productsTableInfo.quantity //Redeviens un nombre
           mySpan.innerHTML = quantity //la quantité décrémente à chaque click
+          let price = myTd.id * quantity
+          myTd.textContent = (`${price} €`) //Le prix change en fonction de la quantité
 
-          // let price = productsTableInfo.price * quantity
-          // myTd.innerHTML = price
-          myTd.textContent = parseFloat(myTd.textContent)
-          console.log("myTd.textContent", myTd.textContent)
-          myTd.innerHTML = myTd.textContent * quantity
+          const $productsCalcul = document.querySelector('#sub-total')
+          totalPrice += price;
+          $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
 
           event.stopPropagation()
           event.preventDefault()
      })
-     // console.log("Prix de chacun des élements du tableau", productsTableInfo.price)
-     // console.log("id de chacun des élements du tableau", productsTableInfo._id)
-     // const $buttonBasketReduce = document.querySelector('.quantity-reduce')
-     // console.log("Chaque boutons moins", $buttonBasketReduce)
-
-     // $productsTableBody.innerHTML += (`
-     // <tr id="parent-price">
-     //      <td class="text-center">${productsTableInfo.name}  ${productsTableInfo.lenses}</td>
-     //      <td class="text-center">
-     //           <button type="button" onclick=" = document.querySelector('#')()" class="btn mx-auto quantity-reduce">-</button>
-     //                <span class="quantity-product">${productsTableInfo.quantity}</span>
-     //           <button type="button" onclick="buttonBasketPlus()" class="btn mx-auto quantity-plus">+</button>
-     //      </td> 
-     //      <td id="price-table" class="text-center">${productsTableInfo.price + ' €'}</td>
-     // </tr>`)
-     // buttonBasket()
 }
-
-
-/*
-Déjà un petit conseil comme ça à première vue : 
-ne pas ajouter des eventListeners 'click' ou autre en passant par la méthode monElement.setAttribute('onclick', taFonction()).
-la bonne syntaxe serait plutôt 
-     monElement.addEventListener('click', function() {
-          tafonctionQuiSExecute();
-     })
-*/
 
 //Fonction pour créer notre bouton d'achat
 const tableFooter = () => {
@@ -243,7 +187,6 @@ if (!storage) { //On vérifie si storage existe
           products.forEach((result) => { //Boucle pour incrémenter le tableau
                productsTableInfo = result
                productsTable()
-
           });
      } else if (products.length >= 1 && localStorage.order) { //Si on a déjà une commande affiche tableEmpty
           tableEmpty()
