@@ -81,27 +81,31 @@ const productsTable = () => {
           //Condition popur changer le prix en fonction de la quantité
           if (quantity <= 0) {
                myTd.textContent = '0' //Bloque le prix à 0
-          } else if (quantity >= 1) {
+               myButtonReduce.classList.add('hide') //Le bouton - disparaît
+          } else {
                myTd.textContent = (`${price} €`)
           }
 
+          //Recalcul du panier total
           const $productsCalcul = document.querySelector('#sub-total')
-          totalPrice -= price;
-          $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
+          totalPrice -= myTd.id * 1; //fait passer myTd.id d'une string à un number
+          $productsCalcul.innerHTML = totalPrice
 
           event.stopPropagation()
           event.preventDefault()
      })
      myButtonPlus.addEventListener('click', function (event) {
+          myButtonReduce.classList.remove('hide') //Le bouton - apparaît
           productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click
           let quantity = ++productsTableInfo.quantity //Redeviens un nombre
           mySpan.innerHTML = quantity //la quantité décrémente à chaque click
           let price = myTd.id * quantity
           myTd.textContent = (`${price} €`) //Le prix change en fonction de la quantité
 
+          //Recalcul du panier total
           const $productsCalcul = document.querySelector('#sub-total')
-          totalPrice += price;
-          $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
+          totalPrice += myTd.id * 1; //fait passer myTd.id d'une string à un number
+          $productsCalcul.innerHTML = totalPrice
 
           event.stopPropagation()
           event.preventDefault()
