@@ -15,7 +15,7 @@ fetch("http://localhost:3000/api/cameras/" + id) //Rappel notre api + l'id de no
         camera = result //Result deviens camera
         //Appel de nos functions
         lenseList()
-        cameraCard()   
+        cameraCard()
     })
     .catch((error) => {
         console.log(error);
@@ -77,7 +77,7 @@ const addToPrice = () => {
 }
 
 //Fonction pour supprimer le blur
-const blurRemove = () =>{
+const blurRemove = () => {
     const $blurRemove = document.querySelector('.basket')
     $blurRemove.classList.remove("inactive")
     $blurRemove.classList.add("active")
@@ -95,13 +95,13 @@ const addToBasket = () => {
         storage = JSON.parse(storage) //On extrait notre json 
     }
     storage.products.push({
-        name: camera.name,
-        _id: camera._id,
-        lenses: inputGroupSelect01.value,
-        quantity: quantity,
-        price: camera.price * quantity,
-        priceByItems: camera.price,
-        imageUrl: camera.imageUrl,
+            name: camera.name,
+            _id: camera._id,
+            lenses: inputGroupSelect01.value,
+            quantity: quantity,
+            price: camera.price * quantity,
+            priceByItems: camera.price,
+            imageUrl: camera.imageUrl
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
     blurRemove()

@@ -1,6 +1,5 @@
 //Page products
 //On initialise nos variables
-let products;
 let productsTableInfo;
 let totalPrice = 0;
 const $productsTableBody = document.querySelector('#products-tablebody');
@@ -8,7 +7,6 @@ let productsTotalSub = []; //On initialise un tableau vide de chaque élément
 let productsTotalQuant = [];
 let productsTotalName = [];
 let productsTotalId = [];
-
 
 //On récupère notre storage en json
 let storage = localStorage.getItem("orinocoCamera");
@@ -22,52 +20,38 @@ const tableRow = () => {
 
 
 //Fonction pour créer une ligne du tableau
-const productsTable = () => {
-     //Crée la ligne tr de chaque élement
-     let myTr = document.createElement('tr')
-     //Donne un id
-     myTr.id = (`${productsTableInfo._id}`)
-     //Inclus myTr dans mon tableau ($productsTableBody)
-     $productsTableBody.appendChild(myTr)
-
-     //Crée la ligne td nom 
-     let myTdName = document.createElement('td')
-     //Donne une classe
-     myTdName.className = 'text-center'
-     //Rajoute le contenu
-     myTdName.textContent = (`${productsTableInfo.name}  ${productsTableInfo.lenses}`)
-     //Inclus myTdName dans myTr
-     myTr.appendChild(myTdName)
-
-     //Crée la ligne td quantité 
-     let myTdQuantity = document.createElement('td')
+const productsTable = () => {     
+     let myTr = document.createElement('tr') //Crée la ligne tr de chaque élement   
+     myTr.id = (`${productsTableInfo._id}`) //Donne un id    
+     $productsTableBody.appendChild(myTr) //Inclus myTr dans mon tableau ($productsTableBody)
+     
+     let myTdName = document.createElement('td')//Crée la ligne td nom     
+     myTdName.className = 'text-center'//Donne une classe    
+     myTdName.textContent = (`${productsTableInfo.name}  ${productsTableInfo.lenses}`)//Rajoute le contenu    
+     myTr.appendChild(myTdName)//Inclus myTdName dans myTr
+  
+     let myTdQuantity = document.createElement('td') //Crée la ligne td quantité 
      myTdQuantity.className = 'text-center'
      myTr.appendChild(myTdQuantity)
 
-
-     // //Créé le bouton -
-     let myButtonReduce = document.createElement('button')
+     let myButtonReduce = document.createElement('button') // Créé le bouton -
      myButtonReduce.className = 'btn mx-auto'
      myButtonReduce.type = 'button'
      myButtonReduce.textContent = '-'
      myTdQuantity.appendChild(myButtonReduce)
-
-     //Créé la span quantité
-     let mySpan = document.createElement('span')
+     
+     let mySpan = document.createElement('span') //Créé la span quantité
      mySpan.id = 'span-quantity'
      mySpan.textContent = (`${productsTableInfo.quantity}`)
      myTdQuantity.appendChild(mySpan)
-     // tr = myTdQuantity.appendChild(mySpan).textContent //Donnne comme valeur la quantité
-
-     //Créé le bouton +
-     let myButtonPlus = document.createElement('button')
+  
+     let myButtonPlus = document.createElement('button') //Créé le bouton +
      myButtonPlus.className = 'btn mx-auto'
      myButtonPlus.type = 'button'
      myButtonPlus.textContent = '+'
      myTdQuantity.appendChild(myButtonPlus)
-
-     //Crée la ligne td du prix
-     let myTdPrice = document.createElement('td')
+   
+     let myTdPrice = document.createElement('td') //Crée la ligne td du prix
      myTdPrice.id = (`${productsTableInfo.priceByItems}`)//Stock le prix par items
      myTdPrice.className = 'text-center'
      myTdPrice.textContent = (`${productsTableInfo.price} €`)
@@ -108,44 +92,83 @@ const productsTable = () => {
           totalPrice += myTdPrice.id * 1; //fait passer myTdPrice.id d'une string à un number
           $productsCalcul.textContent = totalPrice
 
-          // myTdName.textContent = nameAndLense
+          ////////////////////////////////////////////////////////////////////////////////
+          //Section en cours
+          // productsTableInfo
+          // console.log("productsTableInfoOOOOOOOOOOOOOOOO", productsTableInfo)
+          // productsTableInfo.name = myTdName.textContent
+          // console.log("Le nom du produit", productsTableInfo.name)
 
-          productsTableInfo.name = myTdName.textContent
-          console.log("productsTableInfo.name", productsTableInfo.name)
+          // productsTableInfo._id = myTr.id
+          // console.log("L'id du produit", productsTableInfo._id)
 
-          productsTableInfo._id = myTr.id
-          console.log("productsTableInfo._id", productsTableInfo._id.length)
+          // productsTableInfo.quantity = quantity
+          // console.log("la quantité du produit après le click", productsTableInfo.quantity)
 
-          productsTableInfo.quantity = quantity
-          console.log("productsTableInfo.quantity", productsTableInfo.quantity)
+          // productsTableInfo.price = myTdPrice.textContent
+          // console.log("Le prix total de la ligne après le click", productsTableInfo.price)
 
-          productsTableInfo.price =  myTdPrice.textContent
-          console.log("productsTableInfo.price", productsTableInfo.price)
+          // productsTotalId.indexOf()
+          // products.indexOf(products)
+          // console.log("products!!!!!!!!!!!!!!!", products)
+          // console.log(" TEST",  productsTotalQuant)
+          // if(productsTableInfo._id = productsTotalId){
+          //      let pos = productsTotalId.indexOf()
+          //      productsTotalId.splice()
+          //      productsTotalId.indexOf(productsTableInfo._id)
+          //      console.log(" productsTotalId.indexOf()2",  productsTotalId.indexOf(productsTableInfo._id))
+               // storage.products.unshift({     
+               //      name: productsTableInfo.name,
+               //      _id: productsTableInfo._id,
+               //      lenses: '',
+               //      quantity: productsTableInfo.quantity,
+               //      price: productsTableInfo.price,
+               //      // priceByItems: productsTableInfo.price,
+               //      // imageUrl: productsTableInfo.imageUrl,
+               // })
+          //      // productsTotalId.splice()
+          // }
+          //products[0].name
+          // console.log("productsTableInfo._id après commande", productsTableInfo._id)
+          // console.log("productsTotalId après commande", productsTotalId)
 
+          // console.log("productsTotalSub après commande", productsTotalSub)
+          // console.log("productsTotalQuant après commande", productsTotalQuant)
           // productsTotalSub.push(productsTableInfo.price)
           // console.log("productsTotalSub", productsTotalSub)
 
           // productsTotalQuant.push(productsTableInfo.quantity)
           // console.log("productsTotalQuant", productsTotalQuant)
-          storage.products.unshift({
-               name: productsTableInfo.name,
-               _id: productsTableInfo._id,
-               lenses: '',
-               quantity: productsTableInfo.quantity,
-               price: productsTableInfo.price,
-               // priceByItems: productsTableInfo.price,
-               // imageUrl: productsTableInfo.imageUrl,
-          })
+
+          // localStorage.removeItem("orinocoCamera")
+
+          // console.log("products au click", products)
+          //localStorage.removeItem("orinocoCamera")
+          // console.log("products après remove", products)
+          // window.localStorage.getItem("orinocoCamera")
+          
+
+          // storage.products.unshift({     
+          //      name: productsTableInfo.name,
+          //      _id: productsTableInfo._id,
+          //      lenses: '',
+          //      quantity: productsTableInfo.quantity,
+          //      price: productsTableInfo.price,
+          //      // priceByItems: productsTableInfo.price,
+          //      // imageUrl: productsTableInfo.imageUrl,
+          // })
+          // window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
+          // console.log("products après push", products)
           // let pos = products.indexOf(event)
           // console.log("products.indexOf(event)", products.indexOf(event))
           // let removedItems = products.splice(pos, 1)
           // console.log("removedItems", removedItems)
-          console.log("storage", storage)
+          // console.log("storage", storage)
           //storage.products.
-          window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
 
-          console.log("productsTotalSub après commande", productsTotalSub)
-          console.log("productsTotalQuant après commande", productsTotalQuant)
+          // console.log("localStorage3", storage)
+
+          ////////////////////////////////////////////////////////////////////////////////
 
           event.stopPropagation()
           event.preventDefault()
@@ -206,8 +229,6 @@ const implementBasket = () => {
           productsTotalQuant.push(productsTableInfo.quantity)
           productsTotalName.push(productsTableInfo.name)
      });
-     console.log("productsTotalSub avant commande", productsTotalSub)
-     console.log("productsTotalQuant avant commande", productsTotalQuant)
      $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
 }
 
@@ -256,8 +277,8 @@ const sendCommand = () => {
           price: productsTotalSub,
           id: productsTotalId,
      })
-     console.log("productsTotalSub a la commande", productsTotalSub)
-     console.log("productsTotalQuant a la commande", productsTotalQuant)
+     // console.log("productsTotalSub a la commande", productsTotalSub)
+     // console.log("productsTotalQuant a la commande", productsTotalQuant)
      if (order.products.length > 1) { //Supprime anciennes commande si nouvelle commande
           const pos = 1
           const n = 1

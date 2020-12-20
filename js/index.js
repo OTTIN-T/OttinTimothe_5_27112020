@@ -1,8 +1,7 @@
-//Script pour l'index
+//Page index
 //On initialise nos variables
 let camera;
 let $cameraList = document.querySelector('#camera-list');
-
 
 //Appel de notre API
 fetch("http://localhost:3000/api/cameras")

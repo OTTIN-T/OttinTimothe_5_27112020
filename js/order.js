@@ -1,7 +1,7 @@
 //Page order
 //On initialise nos variables
 const $orderForm = document.querySelector('#order-form');
-
+let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
 //Fonction pour notre commande vide
 const commandEmpty = () => {
      $orderForm.innerHTML += (`
@@ -135,7 +135,6 @@ if (localStorage.order) {
 }
 
 //Condition pour afficher et utiliser notre commande
-let storageCommand = localStorage.getItem("sendCommand"); //On récupère notre storageCommand en json
 if (!storageCommand) { //On vérifie si storageCommand existe
      //Si non
      storageCommand = {
