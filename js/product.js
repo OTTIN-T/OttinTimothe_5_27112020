@@ -4,6 +4,8 @@ let camera;
 const $cameraProduct = document.querySelector('#camera-product')
 const lenses = document.createElement("select");
 
+
+
 //Appel URL
 const params = (new URL(document.location)).searchParams;
 const id = params.get('id'); //Obtiens l'id du produit
@@ -31,8 +33,11 @@ const lenseList = () => {
     }
 }
 
+
 //Notre template camera card
 const cameraCard = () => {
+    camera.price = parseFloat(camera.price) / 100 //Permet de supprimer les 0 inutiles des prix
+
     $cameraProduct.innerHTML +=
         (`<div id="camera-item" class="card col-10 mx-auto mt-5 mb-5 shadow">
         <div class="background-image-product card-img-top mx-auto" style="background-image: url(${camera.imageUrl})"></div>
@@ -76,13 +81,6 @@ const addToPrice = () => {
     $cameraPrice.innerHTML = (`${camera.price * quantity} €`)
 }
 
-//Fonction pour supprimer le blur
-const blurRemove = () => {
-    const $blurRemove = document.querySelector('.basket')
-    $blurRemove.classList.remove("inactive")
-    $blurRemove.classList.add("active")
-}
-
 //Fonction pour le localStorage
 const addToBasket = () => {
     const quantity = document.querySelector('#quantity').value //Récupère la valeur de la quantité
@@ -95,15 +93,23 @@ const addToBasket = () => {
         storage = JSON.parse(storage) //On extrait notre json 
     }
     storage.products.push({
-            name: camera.name,
-            _id: camera._id,
-            lenses: inputGroupSelect01.value,
-            quantity: quantity,
-            price: camera.price * quantity,
-            priceByItems: camera.price,
-            imageUrl: camera.imageUrl
+        name: camera.name,
+        _id: camera._id,
+        lenses: inputGroupSelect01.value,
+        quantity: quantity,
+        price: camera.price * quantity,
+        priceByItems: camera.price,
+        imageUrl: camera.imageUrl
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
+    console.log("localStorage", localStorage)
     blurRemove()
     alert(`${quantity} appareil ${camera.name} lentille  ${inputGroupSelect01.value} ajouté à votre panier !`)
+}
+
+//Fonction pour supprimer le blur
+const blurRemove = () => {
+    const $blurRemove = document.querySelector('.basket')
+    $blurRemove.classList.remove("inactive")
+    $blurRemove.classList.add("active")
 }
