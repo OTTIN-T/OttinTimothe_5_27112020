@@ -54,7 +54,7 @@ const productsTable = () => {
      let myTdPrice = document.createElement('td') //Crée la ligne td du prix
      myTdPrice.id = (`${productsTableInfo.priceByItems}`)//Stock le prix par items
      myTdPrice.className = 'text-center'
-     myTdPrice.textContent = (`${productsTableInfo.price} €`)
+     myTdPrice.textContent = (`${productsTableInfo.price}`)
      myTr.appendChild(myTdPrice)
 
      //EventListener pour les boutons +/-
@@ -68,7 +68,7 @@ const productsTable = () => {
                myTdPrice.textContent = '0' //Bloque le prix à 0
                myButtonReduce.classList.add('hide') //Le bouton - disparaît
           } else {
-               myTdPrice.textContent = (`${price} €`)
+               myTdPrice.textContent = (`${price}`)
           }
 
           //Recalcul du panier total
@@ -81,21 +81,16 @@ const productsTable = () => {
      console.log("mon tableau products avant click", products)
      myButtonPlus.addEventListener('click', (event) => {
           myButtonReduce.classList.remove('hide') //Le bouton - apparaît
-          productsTableInfo = {
-               name: myTdName.textContent,
-               _id: myTr.id,
-               lenses: '',
-               quantity: mySpan.textContent, //Prends la valeur textContent exact au click
-               price: myTdPrice.textContent,
-               priceByItems: Math.round(myTdPrice.id / productsTableInfo.quantity) //On arrondi le resulat avec math.round
-          }     
-               console.log("priceByItems", productsTableInfo.priceByItems)
-               console.log("price", productsTableInfo.price)
-          // productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click
+
+          console.log("mySpan.textContent avant", mySpan.textContent)
+          productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click
+          console.log("mySpan.textContent apres", mySpan.textContent)
           let quantity = ++productsTableInfo.quantity //Redeviens un nombre
           mySpan.textContent = quantity //la quantité décrémente à chaque click
           let priceTest = myTdPrice.id * quantity
-          myTdPrice.textContent = (`${priceTest} €`) //Le prix change en fonction de la quantité
+          myTdPrice.textContent = (`${priceTest}`) //Le prix change en fonction de la quantité
+
+
 
           //Recalcul du panier total
           const $productsCalcul = document.querySelector('#sub-total')
@@ -104,6 +99,20 @@ const productsTable = () => {
           $productsCalcul.textContent = totalPrice
           console.log("totalPrice", totalPrice)
 
+          console.log("mySpan.textContent entre", mySpan.textContent)
+          productsTableInfo = {
+               name: myTdName.textContent,
+               _id: myTr.id,
+               lenses: '',
+               quantity: mySpan.textContent * 1, //Prends la valeur textContent exact au click
+               priceByItems: myTdPrice.id * 1,
+               price: (myTdPrice.id * mySpan.textContent) * 1
+               
+          }
+               console.log("mySpan.textContent apres", mySpan.textContent)
+          console.log("priceByItems", productsTableInfo.priceByItems)
+          console.log("price", productsTableInfo.price)
+
           ////////////////////////////////////////////////////////////////////////////////
 
 
@@ -111,25 +120,25 @@ const productsTable = () => {
                // console.log("obj Avant condition", obj)
                //console.log("obj._id Avant condition", obj._id)
                // console.log("productsTableInfo._id Avant condition", productsTableInfo._id)
-               if(obj._id === myTr.id){
+               if (obj._id === myTr.id) {
                     // console.log("productsTableInfo._id après condition", productsTableInfo._id)
                     let pos = products.indexOf(obj)
-                    // console.log("pos", pos)
-                    // console.log("obj après condition", obj)
-                    // console.log("productsTableInfo après condition", productsTableInfo)
+                    console.log("pos", pos)
+                    console.log("obj après condition", obj)
+                    console.log("productsTableInfo après condition", productsTableInfo)
                     products.splice(pos, 1)
-                    // console.log("products après splice", products)
+                    console.log("products après splice", products)
                     products.push(productsTableInfo)
                     // console.log("products après push", products)
                     // obj = productsTableInfo
                     // console.log("obj après =", obj)
                     // obj = productsTableInfo
-                    
-                    
+
+
                     // console.log("obj_id après condition", obj._id)
                     // 
                     // 
-                    
+
                     return true
                }
           }
@@ -143,6 +152,8 @@ const productsTable = () => {
           console.log("localStorage après click", localStorage["orinocoCamera"])
           console.log("mon tableau products après click", products)
           console.log("productsTableInfo après click", productsTableInfo)
+
+
 
           event.stopPropagation()
           event.preventDefault()
@@ -165,7 +176,7 @@ const tableFooter = () => {
                </a>
           </td>
           <td class="text-center">
-               <p class="mt-3">Sous total : <span id="sub-total"></span>€</p>
+               <p class="mt-3">Sous total : <span id="sub-total"></span></p>
           </td>
      </tr>
      <tr class="container">
@@ -205,10 +216,6 @@ const implementBasket = () => {
      });
      $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
 }
-// const $productsCalcul = document.querySelector('#sub-total')
-// totalPrice += myTdPrice.id * 1; //fait passer myTdPrice.id d'une string à un number
-// $productsCalcul.textContent = totalPrice
-// console.log("totalPrice", totalPrice)
 
 //Condition pour afficher et utiliser notre panier
 if (!storage) { //On vérifie si storage existe
@@ -246,7 +253,7 @@ const sendCommand = () => {
           order = {
                products: [],
           }
-               console.log("products", products)
+          console.log("products", products)
      } else {
           order = JSON.parse(order) //On extrait notre json 
      }
@@ -256,8 +263,6 @@ const sendCommand = () => {
           price: productsTotalSub,
           id: productsTotalId,
      })
-     // console.log("productsTotalSub a la commande", productsTotalSub)
-     // console.log("productsTotalQuant a la commande", productsTotalQuant)
      if (order.products.length > 1) { //Supprime anciennes commande si nouvelle commande
           const pos = 1
           const n = 1
