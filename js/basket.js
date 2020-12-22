@@ -20,16 +20,16 @@ const tableRow = () => {
 
 
 //Fonction pour créer une ligne du tableau
-const productsTable = () => {     
+const productsTable = () => {
      let myTr = document.createElement('tr') //Crée la ligne tr de chaque élement   
      myTr.id = (`${productsTableInfo._id}`) //Donne un id    
      $productsTableBody.appendChild(myTr) //Inclus myTr dans mon tableau ($productsTableBody)
-     
+
      let myTdName = document.createElement('td')//Crée la ligne td nom     
      myTdName.className = 'text-center'//Donne une classe    
      myTdName.textContent = (`${productsTableInfo.name}  ${productsTableInfo.lenses}`)//Rajoute le contenu    
      myTr.appendChild(myTdName)//Inclus myTdName dans myTr
-  
+
      let myTdQuantity = document.createElement('td') //Crée la ligne td quantité 
      myTdQuantity.className = 'text-center'
      myTr.appendChild(myTdQuantity)
@@ -39,18 +39,18 @@ const productsTable = () => {
      myButtonReduce.type = 'button'
      myButtonReduce.textContent = '-'
      myTdQuantity.appendChild(myButtonReduce)
-     
+
      let mySpan = document.createElement('span') //Créé la span quantité
      mySpan.id = 'span-quantity'
      mySpan.textContent = (`${productsTableInfo.quantity}`)
      myTdQuantity.appendChild(mySpan)
-  
+
      let myButtonPlus = document.createElement('button') //Créé le bouton +
      myButtonPlus.className = 'btn mx-auto'
      myButtonPlus.type = 'button'
      myButtonPlus.textContent = '+'
      myTdQuantity.appendChild(myButtonPlus)
-   
+
      let myTdPrice = document.createElement('td') //Crée la ligne td du prix
      myTdPrice.id = (`${productsTableInfo.priceByItems}`)//Stock le prix par items
      myTdPrice.className = 'text-center'
@@ -75,100 +75,74 @@ const productsTable = () => {
           const $productsCalcul = document.querySelector('#sub-total')
           totalPrice -= myTdPrice.id * 1; //fait passer myTdPrice.id d'une string à un number
           $productsCalcul.textContent = totalPrice
-
           event.stopPropagation()
           event.preventDefault()
      })
-     myButtonPlus.addEventListener('click', function (event) {
+     console.log("mon tableau products avant click", products)
+     myButtonPlus.addEventListener('click', (event) => {
           myButtonReduce.classList.remove('hide') //Le bouton - apparaît
-          productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click
+          productsTableInfo = {
+               name: myTdName.textContent,
+               _id: myTr.id,
+               lenses: '',
+               quantity: mySpan.textContent, //Prends la valeur textContent exact au click
+               price: myTdPrice.textContent,
+               priceByItems: Math.round(myTdPrice.id / productsTableInfo.quantity) //On arrondi le resulat avec math.round
+          }     
+               console.log("priceByItems", productsTableInfo.priceByItems)
+               console.log("price", productsTableInfo.price)
+          // productsTableInfo.quantity = mySpan.textContent //Prends la valeur textContent exact au click
           let quantity = ++productsTableInfo.quantity //Redeviens un nombre
           mySpan.textContent = quantity //la quantité décrémente à chaque click
-          let price = myTdPrice.id * quantity
-          myTdPrice.textContent = (`${price} €`) //Le prix change en fonction de la quantité
+          let priceTest = myTdPrice.id * quantity
+          myTdPrice.textContent = (`${priceTest} €`) //Le prix change en fonction de la quantité
 
           //Recalcul du panier total
           const $productsCalcul = document.querySelector('#sub-total')
           totalPrice += myTdPrice.id * 1; //fait passer myTdPrice.id d'une string à un number
+          console.log("totalPrice1", totalPrice)
           $productsCalcul.textContent = totalPrice
+          console.log("totalPrice", totalPrice)
 
           ////////////////////////////////////////////////////////////////////////////////
-          //Section en cours
-          // productsTableInfo
-          // console.log("productsTableInfoOOOOOOOOOOOOOOOO", productsTableInfo)
-          // productsTableInfo.name = myTdName.textContent
-          // console.log("Le nom du produit", productsTableInfo.name)
 
-          // productsTableInfo._id = myTr.id
-          // console.log("L'id du produit", productsTableInfo._id)
 
-          // productsTableInfo.quantity = quantity
-          // console.log("la quantité du produit après le click", productsTableInfo.quantity)
+          const filterById = (obj) => {
+               // console.log("obj Avant condition", obj)
+               //console.log("obj._id Avant condition", obj._id)
+               // console.log("productsTableInfo._id Avant condition", productsTableInfo._id)
+               if(obj._id === myTr.id){
+                    // console.log("productsTableInfo._id après condition", productsTableInfo._id)
+                    let pos = products.indexOf(obj)
+                    // console.log("pos", pos)
+                    // console.log("obj après condition", obj)
+                    // console.log("productsTableInfo après condition", productsTableInfo)
+                    products.splice(pos, 1)
+                    // console.log("products après splice", products)
+                    products.push(productsTableInfo)
+                    // console.log("products après push", products)
+                    // obj = productsTableInfo
+                    // console.log("obj après =", obj)
+                    // obj = productsTableInfo
+                    
+                    
+                    // console.log("obj_id après condition", obj._id)
+                    // 
+                    // 
+                    
+                    return true
+               }
+          }
+          // filterById
+          let productsByID = products.filter(filterById);
+          console.log('Tableau filtré', productsByID);
+          window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
 
-          // productsTableInfo.price = myTdPrice.textContent
-          // console.log("Le prix total de la ligne après le click", productsTableInfo.price)
-
-          // productsTotalId.indexOf()
-          // products.indexOf(products)
-          // console.log("products!!!!!!!!!!!!!!!", products)
-          // console.log(" TEST",  productsTotalQuant)
-          // if(productsTableInfo._id = productsTotalId){
-          //      let pos = productsTotalId.indexOf()
-          //      productsTotalId.splice()
-          //      productsTotalId.indexOf(productsTableInfo._id)
-          //      console.log(" productsTotalId.indexOf()2",  productsTotalId.indexOf(productsTableInfo._id))
-               // storage.products.unshift({     
-               //      name: productsTableInfo.name,
-               //      _id: productsTableInfo._id,
-               //      lenses: '',
-               //      quantity: productsTableInfo.quantity,
-               //      price: productsTableInfo.price,
-               //      // priceByItems: productsTableInfo.price,
-               //      // imageUrl: productsTableInfo.imageUrl,
-               // })
-          //      // productsTotalId.splice()
-          // }
-          //products[0].name
-          // console.log("productsTableInfo._id après commande", productsTableInfo._id)
-          // console.log("productsTotalId après commande", productsTotalId)
-
-          // console.log("productsTotalSub après commande", productsTotalSub)
-          // console.log("productsTotalQuant après commande", productsTotalQuant)
-          // productsTotalSub.push(productsTableInfo.price)
-          // console.log("productsTotalSub", productsTotalSub)
-
-          // productsTotalQuant.push(productsTableInfo.quantity)
-          // console.log("productsTotalQuant", productsTotalQuant)
-
-          // localStorage.removeItem("orinocoCamera")
-
-          // console.log("products au click", products)
-          //localStorage.removeItem("orinocoCamera")
-          // console.log("products après remove", products)
-          // window.localStorage.getItem("orinocoCamera")
-          
-
-          // storage.products.unshift({     
-          //      name: productsTableInfo.name,
-          //      _id: productsTableInfo._id,
-          //      lenses: '',
-          //      quantity: productsTableInfo.quantity,
-          //      price: productsTableInfo.price,
-          //      // priceByItems: productsTableInfo.price,
-          //      // imageUrl: productsTableInfo.imageUrl,
-          // })
-          // window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
-          // console.log("products après push", products)
-          // let pos = products.indexOf(event)
-          // console.log("products.indexOf(event)", products.indexOf(event))
-          // let removedItems = products.splice(pos, 1)
-          // console.log("removedItems", removedItems)
-          // console.log("storage", storage)
-          //storage.products.
-
-          // console.log("localStorage3", storage)
 
           ////////////////////////////////////////////////////////////////////////////////
+          console.log("localStorage après click", localStorage["orinocoCamera"])
+          console.log("mon tableau products après click", products)
+          console.log("productsTableInfo après click", productsTableInfo)
 
           event.stopPropagation()
           event.preventDefault()
@@ -231,6 +205,10 @@ const implementBasket = () => {
      });
      $productsCalcul.innerHTML = totalPrice //On fait le total de notre tableau
 }
+// const $productsCalcul = document.querySelector('#sub-total')
+// totalPrice += myTdPrice.id * 1; //fait passer myTdPrice.id d'une string à un number
+// $productsCalcul.textContent = totalPrice
+// console.log("totalPrice", totalPrice)
 
 //Condition pour afficher et utiliser notre panier
 if (!storage) { //On vérifie si storage existe
@@ -268,6 +246,7 @@ const sendCommand = () => {
           order = {
                products: [],
           }
+               console.log("products", products)
      } else {
           order = JSON.parse(order) //On extrait notre json 
      }

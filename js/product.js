@@ -99,10 +99,9 @@ const addToBasket = () => {
         quantity: quantity,
         price: camera.price * quantity,
         priceByItems: camera.price,
-        imageUrl: camera.imageUrl
     })
     window.localStorage.setItem("orinocoCamera", JSON.stringify(storage))
-    console.log("localStorage", localStorage)
+    console.log("localStorage", storage.products)
     blurRemove()
     alert(`${quantity} appareil ${camera.name} lentille  ${inputGroupSelect01.value} ajouté à votre panier !`)
 }
