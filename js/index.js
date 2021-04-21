@@ -21,7 +21,7 @@ fetch("https://apporinoco.herokuapp.com/api/cameras")
 const cameraCard = () => {
     $cameraList.innerHTML +=
         `<div id="camera-card" class="card col-lg-5 col-md-12 col-sm-12 col-12 mt-3 mb-3 shadow">
-        <a href="./html/product.html?id=${camera._id}">
+        <a href="../html/product.html?id=${camera._id}">
             <div class="background-image-camera card-img-top" style="background-image: url(${camera.imageUrl})"></div>
         </a>
         <div class="card-body">
