@@ -4,7 +4,7 @@ let camera;
 let $cameraList = document.querySelector('#camera-list');
 
 //Appel de notre API
-fetch(`${apiURL}`)
+fetch(`${apiURL}/api/cameras`)
     .then(async result_ => { //On rend asynchrone notre fonction
         const result = await result_.json() //Le reste du code s'execute après l'execution de la promesse 
         result.forEach(result => {
@@ -21,7 +21,7 @@ fetch(`${apiURL}`)
 const cameraCard = () => {
     $cameraList.innerHTML +=
         `<div id="camera-card" class="card col-lg-5 col-md-12 col-sm-12 col-12 mt-3 mb-3 shadow">
-        <a href="OttinTimothe_5_27112020/html/product.html?id=${camera._id}">
+        <a href=../html/product.html?id=${camera._id}">
             <div class="background-image-camera card-img-top" style="background-image: url(${camera.imageUrl})"></div>
         </a>
         <div class="card-body">
