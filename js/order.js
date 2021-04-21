@@ -96,7 +96,7 @@ $orderForm.addEventListener('submit', () => {  //On écoute l'envoi
           products: productsTotalId,  //Tableau des id des items
      };
      //Création de la requête POST
-     fetch("http://localhost:3000/api/cameras/order", {
+     fetch(`${apiURL}/order`, {
           method: 'POST', //Methode d'envoi
           headers: new Headers({
                "Content-Type": "application/json"//On 'précise' que l'objet envoyé sera au format JSON
