@@ -7,13 +7,12 @@ Ceci est le projet numéro 5 de la formation développeur web d'OpenClassrooms.
 Le projet consistait à la réalisation de la partie frontend d'un site e-commerce en JavaScript sans framework. Le backend avec l'API était fourni par OpenClassrooms. 
 J'étais libre de mes choix sur le design et les animations CSS. 
 
-Je n'avais absolument aucune connaissance en JavaScript avant ce projet. Le site ce devait d'être responsive et valider les validateurs W3C. Tout en respectant les normes WCAG.
+Je n'avais absolument aucune connaissance en JavaScript avant ce projet. Le site se devait d'être responsive et valider les validateurs W3C, tout en respectant les normes WCAG.
 Notez l'utilisation de Bootstrap et d'un design très simple dans le but de me focus sur la partie technique du projet. 
 
-Ce projet fus réalisé en quasi-totale autonomie. Je possédais l'aide d'un mentor OpenClassrooms une fois par semaine. 
+Ce projet fut réalisé en quasi-totale autonomie. Je possédais l'aide d'un mentor OpenClassrooms une fois par semaine. 
 
-Ce projet fus évalué par un mentor évaluateur OpenClassrooms qui validais si le projet était conforme aux attentes lors d'une soutenance.
-
+Ce projet fut évalué par un mentor évaluateur OpenClassrooms qui validais si le projet était conforme aux attentes lors d'une soutenance.
 
 ## Installation
 
