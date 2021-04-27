@@ -19,7 +19,7 @@ Ce projet fut évalué par un mentor évaluateur OpenClassrooms qui validais si 
 - Rendez-vous sur [Orinoco](https://ottin-t.github.io/OttinTimothe_5_27112020/)
 - Naviguez !
 
-
+(Le backend étant hébergé par Heroku de manière gratuite, veuillez patienter quelques secondes lors du lancement.)
 ### Ou
 
 - Cloner d'abord le repo de l'[api](https://github.com/OpenClassrooms-Student-Center/JWDP5.git ) dans un dossier
